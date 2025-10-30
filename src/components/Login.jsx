@@ -43,7 +43,7 @@ function Login({ onLogin }) {
             placeholder="password"
             required
           />
-          <span class="error-message">{errorMessage}</span>
+          <span className="error-message">{errorMessage}</span>
           <button type="submit">Sign In</button>
         </form>
       </div>

@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+const mockUsers = [
+  { username: "manager1", password: "123456", role: "manager" },
+  { username: "employee1", password: "qwerty", role: "employee" },
+];
+
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

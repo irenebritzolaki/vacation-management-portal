@@ -44,9 +44,7 @@ function Login() {
             placeholder="password"
             required
           />
-          <span class="error-message" style={{ color: "red" }}>
-            {errorMessage}
-          </span>
+          <span class="error-message">{errorMessage}</span>
           <button type="submit">Sign In</button>
         </form>
       </div>

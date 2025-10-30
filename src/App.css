@@ -55,10 +55,15 @@
 }
 
 .login-container input {
+  font-size: 1em;
   padding: 8px;
+}
+
+.login-container .error-message {
+  min-height: 1em;
+  color: red;
 }
 
 .login-container button {
   align-self: center;
-  margin-top: 10px;
 }

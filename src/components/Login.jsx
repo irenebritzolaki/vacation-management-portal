@@ -5,7 +5,7 @@ const mockUsers = [
   { username: "employee1", password: "qwerty", role: "employee" },
 ];
 
-function Login() {
+function Login({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -19,8 +19,7 @@ function Login() {
 
     if (user) {
       setErrorMessage("");
-      if (user.role === "manager") alert("You are logged in as a manager");
-      else alert("You are logged in as an employee");
+      onLogin(user);
     } else {
       setErrorMessage("Invalid username or password");
     }

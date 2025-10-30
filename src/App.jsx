@@ -11,11 +11,19 @@ function App() {
     setUser(userData);
   };
 
+  const handleLogout = () => {
+    setUser(null);
+  };
+
   if (!user) {
     return <Login onLogin={handleLogin} />;
   }
 
-  return user.role === "manager" ? <ManagerDashboard /> : <EmployeeDashboard />;
+  return user.role === "manager" ? (
+    <ManagerDashboard onLogout={handleLogout} />
+  ) : (
+    <EmployeeDashboard onLogout={handleLogout} />
+  );
 }
 
 export default App;

@@ -8,7 +8,7 @@ function Login() {
 
   return (
     <>
-      <div>
+      <div className="login-container">
         <form onSubmit={handleLogin}>
           <div>
             <input

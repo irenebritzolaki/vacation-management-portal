@@ -40,3 +40,25 @@
 .read-the-docs {
   color: #888;
 }
+
+.login-container {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.login-container input {
+  padding: 8px;
+}
+
+.login-container button {
+  align-self: center;
+  margin-top: 10px;
+}

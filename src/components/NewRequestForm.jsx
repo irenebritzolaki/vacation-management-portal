@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 function NewRequestForm({ onSubmit, onCancel }) {
+  const today = new Date().toISOString().split("T")[0];
+
   const [formData, setFormData] = useState({
     startDate: "",
     endDate: "",
@@ -13,6 +15,18 @@ function NewRequestForm({ onSubmit, onCancel }) {
     setFormData({ startDate: "", endDate: "", reason: "" });
   };
 
+  const handleStartDateChange = (e) => {
+    const newStart = e.target.value;
+
+    setFormData((prev) => {
+      const updated = { ...prev, startDate: newStart };
+      if (prev.endDate && prev.endDate < newStart) {
+        updated.endDate = "";
+      }
+      return updated;
+    });
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <h3>New Vacation Request</h3>
@@ -21,9 +35,8 @@ function NewRequestForm({ onSubmit, onCancel }) {
         <input
           type="date"
           value={formData.startDate}
-          onChange={(e) =>
-            setFormData({ ...formData, startDate: e.target.value })
-          }
+          onChange={(e) => handleStartDateChange(e)}
+          min={today}
           required
         />
       </div>
@@ -35,6 +48,7 @@ function NewRequestForm({ onSubmit, onCancel }) {
           onChange={(e) =>
             setFormData({ ...formData, endDate: e.target.value })
           }
+          min={formData.startDate}
           required
         />
       </div>

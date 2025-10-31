@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CreateUserForm from "./CreateUserForm";
 
 const mockUsers = [
   {
@@ -44,34 +45,58 @@ function UserRow({ user }) {
 
 function ManagerDashboard({ user, onLogout }) {
   const [users, setUsers] = useState(mockUsers);
+  const [showUserForm, setShowUserForm] = useState(false);
+
+  const handleCreateUser = () => {
+    setShowUserForm(true);
+  };
+
+  const handleSubmitCreateUser = (newUserData) => {
+    const newUser = {
+      id: Date.now(),
+      ...newUserData,
+    };
+
+    setUsers([...users, newUser]);
+    setShowUserForm(false);
+  };
 
   return (
     <div className="dashboard">
       <button onClick={onLogout}>Logout</button>
       <h1>Hello, {user.username}</h1>
-      <div>
-        <h2>Registered users</h2>
 
-        {users.length === 0 ? (
-          <p>No registered users yet.</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>employee_id</th>
-                <th>username</th>
-                <th>email</th>
-                <th>password</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((u) => (
-                <UserRow key={u.id} user={u} />
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      {showUserForm ? (
+        <CreateUserForm
+          onSubmit={handleSubmitCreateUser}
+          onCancel={() => setShowUserForm(false)}
+        />
+      ) : (
+        <div>
+          <h2>Registered users</h2>
+          <button onClick={handleCreateUser}>Create user</button>
+
+          {users.length === 0 ? (
+            <p>No registered users yet.</p>
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th>employee_id</th>
+                  <th>username</th>
+                  <th>email</th>
+                  <th>password</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((u) => (
+                  <UserRow key={u.id} user={u} />
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,12 +1,77 @@
-function EmployeeDashboard({ onLogout }) {
+import { useState } from "react";
+
+const mockRequests = [
+  {
+    id: 1,
+    dateSubmitted: "2025-10-30",
+    startDate: "2025-12-01",
+    endDate: "2025-12-05",
+    reason: "vacation",
+    status: "pending",
+  },
+  {
+    id: 2,
+    dateSubmitted: "2025-10-28",
+    startDate: "2025-11-10",
+    endDate: "2025-11-12",
+    reason: "rest",
+    status: "approved",
+  },
+  {
+    id: 3,
+    dateSubmitted: "2025-10-30",
+    startDate: "2025-11-10",
+    endDate: "2025-11-12",
+    reason: "just because",
+    status: "rejected",
+  },
+];
+
+function RequestEntry({ request }) {
   return (
-    <>
-      <div>
-        <h1>Employee Dashboard</h1>
-        <button onClick={onLogout}>Log out</button>
-      </div>
-    </>
+    <tr key={request.id}>
+      <td>{request.dateSubmitted}</td>
+      <td>
+        {request.startDate} -&gt; {request.endDate}
+      </td>
+      <td>to do</td>
+      <td>{request.reason}</td>
+      <td>{request.status}</td>
+    </tr>
   );
 }
 
-export default EmployeeDashboard;
+export default function EmployeeDashboard({ user, onLogout }) {
+  const [requests, setRequests] = useState(mockRequests);
+
+  return (
+    <div className="dashboard">
+      <button onClick={onLogout}>Logout</button>
+      <h1>Hello, {user.username}</h1>
+
+      <div>
+        <h2>Your Vacation Requests</h2>
+        {requests.length === 0 ? (
+          <p>No requests submitted yet.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Date submitted</th>
+                <th>Dates requested</th>
+                <th>Total days</th>
+                <th>Reason</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {requests.map((req) => (
+                <RequestEntry request={req} />
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
+  );
+}

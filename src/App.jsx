@@ -5,7 +5,7 @@ import EmployeeDashboard from "./components/EmployeeDashboard";
 import ManagerDashboard from "./components/ManagerDashboard";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ username: "Eirini", role: "employee" });
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -15,6 +15,8 @@ function App() {
     setUser(null);
   };
 
+  return <EmployeeDashboard user={user} onLogout={handleLogout} />;
+
   if (!user) {
     return <Login onLogin={handleLogin} />;
   }
@@ -22,7 +24,7 @@ function App() {
   return user.role === "manager" ? (
     <ManagerDashboard onLogout={handleLogout} />
   ) : (
-    <EmployeeDashboard onLogout={handleLogout} />
+    <EmployeeDashboard user={user} onLogout={handleLogout} />
   );
 }
 

@@ -28,7 +28,7 @@ const mockRequests = [
   },
 ];
 
-function RequestEntry({ request }) {
+function RequestEntry({ request, onDeleteRequest }) {
   const countDays = (startDate, endDate) => {
     const timeDifference = new Date(endDate) - new Date(startDate);
     const daysDifference = timeDifference / (1000 * 3600 * 24);
@@ -36,7 +36,7 @@ function RequestEntry({ request }) {
   };
 
   return (
-    <tr key={request.id}>
+    <tr>
       <td>{request.dateSubmitted}</td>
       <td>
         {request.startDate} -&gt; {request.endDate}
@@ -44,6 +44,13 @@ function RequestEntry({ request }) {
       <td>{countDays(request.startDate, request.endDate)}</td>
       <td>{request.reason}</td>
       <td>{request.status}</td>
+      <td>
+        {request.status === "pending" ? (
+          <button onClick={onDeleteRequest}>Delete</button>
+        ) : (
+          <span></span>
+        )}
+      </td>
     </tr>
   );
 }
@@ -66,6 +73,11 @@ export default function EmployeeDashboard({ user, onLogout }) {
     };
     setRequests([...requests, newRequest]);
     setShowForm(false);
+  };
+
+  const handleDeleteRequest = (requestID) => {
+    const updatedRequests = requests.filter((req) => req.id !== requestID);
+    setRequests(updatedRequests);
   };
 
   return (
@@ -94,11 +106,16 @@ export default function EmployeeDashboard({ user, onLogout }) {
                   <th>Total days</th>
                   <th>Reason</th>
                   <th>Status</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 {requests.map((req) => (
-                  <RequestEntry request={req} />
+                  <RequestEntry
+                    key={req.id}
+                    request={req}
+                    onDeleteRequest={() => handleDeleteRequest(req.id)}
+                  />
                 ))}
               </tbody>
             </table>

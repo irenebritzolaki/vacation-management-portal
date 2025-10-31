@@ -28,13 +28,19 @@ const mockRequests = [
 ];
 
 function RequestEntry({ request }) {
+  const countDays = (startDate, endDate) => {
+    const timeDifference = new Date(endDate) - new Date(startDate);
+    const daysDifference = timeDifference / (1000 * 3600 * 24);
+    return daysDifference;
+  };
+
   return (
     <tr key={request.id}>
       <td>{request.dateSubmitted}</td>
       <td>
         {request.startDate} -&gt; {request.endDate}
       </td>
-      <td>to do</td>
+      <td>{countDays(request.startDate, request.endDate)}</td>
       <td>{request.reason}</td>
       <td>{request.status}</td>
     </tr>

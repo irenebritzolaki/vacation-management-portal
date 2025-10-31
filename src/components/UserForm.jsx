@@ -1,12 +1,14 @@
 import { useState } from "react";
 
-function CreateUserForm({ onSubmit, onCancel }) {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    employeeID: "",
-  });
+function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
+  const [formData, setFormData] = useState(
+    initialData || {
+      username: "",
+      email: "",
+      password: "",
+      employeeID: "",
+    }
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +18,7 @@ function CreateUserForm({ onSubmit, onCancel }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>Create New User</h3>
+      <h3>{mode === "create" ? "Create New User" : "Update User"}</h3>
       <div>
         <label>Username: </label>
         <input
@@ -56,11 +58,12 @@ function CreateUserForm({ onSubmit, onCancel }) {
           onChange={(e) =>
             setFormData({ ...formData, employeeID: e.target.value })
           }
+          disabled={mode === "edit"}
           required
         />
       </div>
       <div>
-        <button type="submit">Submit</button>
+        <button type="submit">{mode === "create" ? "Submit" : "Update"}</button>
         <button type="button" onClick={onCancel}>
           Cancel
         </button>
@@ -69,4 +72,4 @@ function CreateUserForm({ onSubmit, onCancel }) {
   );
 }
 
-export default CreateUserForm;
+export default UserForm;

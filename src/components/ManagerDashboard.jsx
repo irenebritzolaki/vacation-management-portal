@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CreateUserForm from "./CreateUserForm";
+import UserForm from "./UserForm";
 
 const mockUsers = [
   {
@@ -32,13 +32,16 @@ const mockUsers = [
   },
 ];
 
-function UserRow({ user }) {
+function UserRow({ user, onEditUser }) {
   return (
     <tr>
       <td>{user.employeeID}</td>
       <td>{user.username}</td>
       <td>{user.email}</td>
       <td>{user.password}</td>
+      <td>
+        <button onClick={() => onEditUser(user)}>Edit</button>
+      </td>
     </tr>
   );
 }
@@ -46,6 +49,7 @@ function UserRow({ user }) {
 function ManagerDashboard({ user, onLogout }) {
   const [users, setUsers] = useState(mockUsers);
   const [showUserForm, setShowUserForm] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
 
   const handleCreateUser = () => {
     setShowUserForm(true);
@@ -61,15 +65,34 @@ function ManagerDashboard({ user, onLogout }) {
     setShowUserForm(false);
   };
 
+  const handleEditUser = (userToEdit) => {
+    setEditingUser(userToEdit);
+    setShowUserForm(true);
+  };
+
+  const handleUpdateUser = (updatedUser) => {
+    const updatedUserList = users.map((u) =>
+      u.id === updatedUser.id ? updatedUser : u
+    );
+    setUsers(updatedUserList);
+    setEditingUser(null);
+    setShowUserForm(false);
+  };
+
   return (
     <div className="dashboard">
       <button onClick={onLogout}>Logout</button>
       <h1>Hello, {user.username}</h1>
 
       {showUserForm ? (
-        <CreateUserForm
-          onSubmit={handleSubmitCreateUser}
-          onCancel={() => setShowUserForm(false)}
+        <UserForm
+          onSubmit={editingUser ? handleUpdateUser : handleSubmitCreateUser}
+          onCancel={() => {
+            setEditingUser(null);
+            setShowUserForm(false);
+          }}
+          mode={editingUser ? "edit" : "create"}
+          initialData={editingUser}
         />
       ) : (
         <div>
@@ -86,11 +109,12 @@ function ManagerDashboard({ user, onLogout }) {
                   <th>username</th>
                   <th>email</th>
                   <th>password</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 {users.map((u) => (
-                  <UserRow key={u.id} user={u} />
+                  <UserRow key={u.id} user={u} onEditUser={handleEditUser} />
                 ))}
               </tbody>
             </table>

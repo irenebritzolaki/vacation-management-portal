@@ -32,7 +32,7 @@ const mockUsers = [
   },
 ];
 
-function UserRow({ user, onEditUser }) {
+function UserRow({ user, onEditUser, onDeleteUser }) {
   return (
     <tr>
       <td>{user.employeeID}</td>
@@ -41,6 +41,7 @@ function UserRow({ user, onEditUser }) {
       <td>{user.password}</td>
       <td>
         <button onClick={() => onEditUser(user)}>Edit</button>
+        <button onClick={() => onDeleteUser(user.id)}>Delete</button>
       </td>
     </tr>
   );
@@ -79,6 +80,12 @@ function ManagerDashboard({ user, onLogout }) {
     setShowUserForm(false);
   };
 
+  const handleDeleteUser = (userID) => {
+    const updatedUserList = users.filter((u) => u.id !== userID);
+    setUsers(updatedUserList);
+    // todo: delete associated data
+  };
+
   return (
     <div className="dashboard">
       <button onClick={onLogout}>Logout</button>
@@ -114,7 +121,12 @@ function ManagerDashboard({ user, onLogout }) {
               </thead>
               <tbody>
                 {users.map((u) => (
-                  <UserRow key={u.id} user={u} onEditUser={handleEditUser} />
+                  <UserRow
+                    key={u.id}
+                    user={u}
+                    onEditUser={handleEditUser}
+                    onDeleteUser={handleDeleteUser}
+                  />
                 ))}
               </tbody>
             </table>

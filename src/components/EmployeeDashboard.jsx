@@ -32,7 +32,7 @@ function RequestEntry({ request, onDeleteRequest }) {
   const countDays = (startDate, endDate) => {
     const timeDifference = new Date(endDate) - new Date(startDate);
     const daysDifference = timeDifference / (1000 * 3600 * 24);
-    return daysDifference;
+    return daysDifference + 1; // count both start and end dates
   };
 
   return (

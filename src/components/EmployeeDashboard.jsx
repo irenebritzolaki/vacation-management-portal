@@ -45,10 +45,8 @@ function RequestEntry({ request, onDeleteRequest }) {
       <td>{request.reason}</td>
       <td>{request.status}</td>
       <td>
-        {request.status === "pending" ? (
+        {request.status === "pending" && (
           <button onClick={onDeleteRequest}>Delete</button>
-        ) : (
-          <span></span>
         )}
       </td>
     </tr>

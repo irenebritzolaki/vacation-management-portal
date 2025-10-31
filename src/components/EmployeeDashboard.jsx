@@ -1,4 +1,5 @@
 import { useState } from "react";
+import NewRequestForm from "./NewRequestForm";
 
 const mockRequests = [
   {
@@ -49,35 +50,61 @@ function RequestEntry({ request }) {
 
 export default function EmployeeDashboard({ user, onLogout }) {
   const [requests, setRequests] = useState(mockRequests);
+  const [showForm, setShowForm] = useState(false);
+
+  const handleNewRequest = () => {
+    setShowForm(true);
+  };
+
+  const handleSubmitNewRequest = (newRequestData) => {
+    const today = new Date().toISOString().split("T")[0];
+    const newRequest = {
+      id: Date.now(),
+      dateSubmitted: today,
+      status: "pending",
+      ...newRequestData,
+    };
+    setRequests([...requests, newRequest]);
+    setShowForm(false);
+  };
 
   return (
     <div className="dashboard">
       <button onClick={onLogout}>Logout</button>
       <h1>Hello, {user.username}</h1>
 
-      <div>
-        <h2>Your Vacation Requests</h2>
-        {requests.length === 0 ? (
-          <p>No requests submitted yet.</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Date submitted</th>
-                <th>Dates requested</th>
-                <th>Total days</th>
-                <th>Reason</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {requests.map((req) => (
-                <RequestEntry request={req} />
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      {showForm ? (
+        <NewRequestForm
+          onCancel={() => setShowForm(false)}
+          onSubmit={handleSubmitNewRequest}
+        />
+      ) : (
+        <div>
+          <h2>Your Vacation Requests</h2>
+          <button onClick={handleNewRequest}>New Request</button>
+
+          {requests.length === 0 ? (
+            <p>No requests submitted yet.</p>
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th>Date submitted</th>
+                  <th>Dates requested</th>
+                  <th>Total days</th>
+                  <th>Reason</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {requests.map((req) => (
+                  <RequestEntry request={req} />
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import UserForm from "./UserForm";
+import UsersTable from "./UsersTable";
 
 const mockUsers = [
   {
@@ -31,21 +32,6 @@ const mockUsers = [
     employeeID: 2883112,
   },
 ];
-
-function UserRow({ user, onEditUser, onDeleteUser }) {
-  return (
-    <tr>
-      <td>{user.employeeID}</td>
-      <td>{user.username}</td>
-      <td>{user.email}</td>
-      <td>{user.password}</td>
-      <td>
-        <button onClick={() => onEditUser(user)}>Edit</button>
-        <button onClick={() => onDeleteUser(user.id)}>Delete</button>
-      </td>
-    </tr>
-  );
-}
 
 function ManagerDashboard({ user, onLogout }) {
   const [users, setUsers] = useState(mockUsers);
@@ -109,27 +95,11 @@ function ManagerDashboard({ user, onLogout }) {
           {users.length === 0 ? (
             <p>No registered users yet.</p>
           ) : (
-            <table>
-              <thead>
-                <tr>
-                  <th>employee_id</th>
-                  <th>username</th>
-                  <th>email</th>
-                  <th>password</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((u) => (
-                  <UserRow
-                    key={u.id}
-                    user={u}
-                    onEditUser={handleEditUser}
-                    onDeleteUser={handleDeleteUser}
-                  />
-                ))}
-              </tbody>
-            </table>
+            <UsersTable
+              users={users}
+              onEditUser={handleEditUser}
+              onDeleteUser={handleDeleteUser}
+            />
           )}
         </div>
       )}

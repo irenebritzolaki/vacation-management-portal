@@ -20,6 +20,18 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
     <form onSubmit={handleSubmit}>
       <h3>{mode === "create" ? "Create New User" : "Update User"}</h3>
       <div>
+        <label>Employee ID: </label>
+        <input
+          type="text"
+          value={formData.employeeID}
+          onChange={(e) =>
+            setFormData({ ...formData, employeeID: e.target.value })
+          }
+          disabled={mode === "edit"}
+          required
+        />
+      </div>
+      <div>
         <label>Username: </label>
         <input
           type="text"
@@ -47,18 +59,6 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
           onChange={(e) =>
             setFormData({ ...formData, password: e.target.value })
           }
-          required
-        />
-      </div>
-      <div>
-        <label>Employee ID: </label>
-        <input
-          type="text"
-          value={formData.employeeID}
-          onChange={(e) =>
-            setFormData({ ...formData, employeeID: e.target.value })
-          }
-          disabled={mode === "edit"}
           required
         />
       </div>

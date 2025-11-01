@@ -18,10 +18,10 @@ export default function UsersTable({ users, onEditUser, onDeleteUser }) {
     <table>
       <thead>
         <tr>
-          <th>employee_id</th>
-          <th>username</th>
-          <th>email</th>
-          <th>password</th>
+          <th>Employee ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Password</th>
           <th></th>
         </tr>
       </thead>

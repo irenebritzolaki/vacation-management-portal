@@ -1,8 +1,8 @@
 import { useState } from "react";
 import UserForm from "./UserForm";
 import UsersTable from "./UsersTable";
-import RequestsTable from "./RequestsTable";
-import Header from "./Header";
+import RequestsTable from "../common/RequestsTable";
+import Header from "../common/Header";
 
 const mockUsers = [
   {

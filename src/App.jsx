@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./App.css";
-import SignInPage from "./components/SignInPage";
-import EmployeeDashboard from "./components/EmployeeDashboard";
-import ManagerDashboard from "./components/ManagerDashboard";
+import SignInPage from "./components/pages/SignInPage";
+import EmployeeDashboard from "./components/employee/EmployeeDashboard";
+import ManagerDashboard from "./components/manager/ManagerDashboard";
 
 function App() {
-  const [user, setUser] = useState({ username: "Eirini", role: "employee" });
+  const [user, setUser] = useState(false);
 
   const handleSignIn = (userData) => {
     setUser(userData);

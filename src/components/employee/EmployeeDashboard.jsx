@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NewRequestForm from "./NewRequestForm";
-import RequestsTable from "./RequestsTable";
-import Header from "./Header";
+import RequestsTable from "../common/RequestsTable";
+import Header from "../common/Header";
 
 const mockRequests = [
   {

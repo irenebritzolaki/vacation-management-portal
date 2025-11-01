@@ -1,5 +1,6 @@
 import { useState } from "react";
 import NewRequestForm from "./NewRequestForm";
+import RequestsTable from "./RequestsTable";
 
 const mockRequests = [
   {
@@ -28,32 +29,7 @@ const mockRequests = [
   },
 ];
 
-function RequestEntry({ request, onDeleteRequest }) {
-  const countDays = (startDate, endDate) => {
-    const timeDifference = new Date(endDate) - new Date(startDate);
-    const daysDifference = timeDifference / (1000 * 3600 * 24);
-    return daysDifference + 1; // count both start and end dates
-  };
-
-  return (
-    <tr>
-      <td>{request.dateSubmitted}</td>
-      <td>
-        {request.startDate} -&gt; {request.endDate}
-      </td>
-      <td>{countDays(request.startDate, request.endDate)}</td>
-      <td>{request.reason}</td>
-      <td>{request.status}</td>
-      <td>
-        {request.status === "pending" && (
-          <button onClick={onDeleteRequest}>Delete</button>
-        )}
-      </td>
-    </tr>
-  );
-}
-
-export default function EmployeeDashboard({ user, onLogout }) {
+function EmployeeDashboard({ user, onLogout }) {
   const [requests, setRequests] = useState(mockRequests);
   const [showForm, setShowForm] = useState(false);
 
@@ -96,30 +72,15 @@ export default function EmployeeDashboard({ user, onLogout }) {
           {requests.length === 0 ? (
             <p>No requests submitted yet.</p>
           ) : (
-            <table>
-              <thead>
-                <tr>
-                  <th>Date submitted</th>
-                  <th>Dates requested</th>
-                  <th>Total days</th>
-                  <th>Reason</th>
-                  <th>Status</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {requests.map((req) => (
-                  <RequestEntry
-                    key={req.id}
-                    request={req}
-                    onDeleteRequest={() => handleDeleteRequest(req.id)}
-                  />
-                ))}
-              </tbody>
-            </table>
+            <RequestsTable
+              requests={requests}
+              onDeleteRequest={handleDeleteRequest}
+            />
           )}
         </div>
       )}
     </div>
   );
 }
+
+export default EmployeeDashboard;

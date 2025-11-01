@@ -1,6 +1,7 @@
 import { useState } from "react";
 import NewRequestForm from "./NewRequestForm";
 import RequestsTable from "./RequestsTable";
+import Header from "./Header";
 
 const mockRequests = [
   {
@@ -29,7 +30,7 @@ const mockRequests = [
   },
 ];
 
-function EmployeeDashboard({ user, onLogout }) {
+function EmployeeDashboard({ user, onSignout }) {
   const [requests, setRequests] = useState(mockRequests);
   const [showForm, setShowForm] = useState(false);
 
@@ -56,30 +57,30 @@ function EmployeeDashboard({ user, onLogout }) {
 
   return (
     <div className="dashboard">
-      <button onClick={onLogout}>Logout</button>
-      <h1>Hello, {user.username}</h1>
+      <Header userName={user.username} onSignOut={onSignout} />
+      <div className="container">
+        {showForm ? (
+          <NewRequestForm
+            onCancel={() => setShowForm(false)}
+            onSubmit={handleSubmitNewRequest}
+          />
+        ) : (
+          <div>
+            <h2>Your Vacation Requests</h2>
+            <button onClick={handleNewRequest}>New Request</button>
 
-      {showForm ? (
-        <NewRequestForm
-          onCancel={() => setShowForm(false)}
-          onSubmit={handleSubmitNewRequest}
-        />
-      ) : (
-        <div>
-          <h2>Your Vacation Requests</h2>
-          <button onClick={handleNewRequest}>New Request</button>
-
-          {requests.length === 0 ? (
-            <p>No requests submitted yet.</p>
-          ) : (
-            <RequestsTable
-              requests={requests}
-              onDeleteRequest={handleDeleteRequest}
-              mode="employee"
-            />
-          )}
-        </div>
-      )}
+            {requests.length === 0 ? (
+              <p>No requests submitted yet.</p>
+            ) : (
+              <RequestsTable
+                requests={requests}
+                onDeleteRequest={handleDeleteRequest}
+                mode="employee"
+              />
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

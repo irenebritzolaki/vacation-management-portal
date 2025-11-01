@@ -41,29 +41,29 @@
   color: #888;
 }
 
-.login-container {
+.sign-in-container {
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
 
-.login-container form {
+.sign-in-container form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 10px;
 }
 
-.login-container input {
+.sign-in-container input {
   font-size: 1em;
   padding: 8px;
 }
 
-.login-container .error-message {
+.sign-in-container .error-message {
   min-height: 1em;
   color: red;
 }
 
-.login-container button {
+.sign-in-container button {
   align-self: center;
 }

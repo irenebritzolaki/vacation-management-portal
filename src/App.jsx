@@ -1,30 +1,35 @@
 import { useState } from "react";
 import "./App.css";
-import Login from "./components/Login";
+import SignInPage from "./components/SignInPage";
 import EmployeeDashboard from "./components/EmployeeDashboard";
 import ManagerDashboard from "./components/ManagerDashboard";
 
 function App() {
-  const [user, setUser] = useState({ username: "Eirini", role: "manager" });
+  const [user, setUser] = useState({ username: "Eirini", role: "employee" });
 
-  const handleLogin = (userData) => {
+  const handleSignIn = (userData) => {
     setUser(userData);
   };
 
-  const handleLogout = () => {
+  const handleSignOut = () => {
     setUser(null);
   };
 
-  return <ManagerDashboard user={user} onLogout={handleLogout} />;
+  // return (
+  //   <>
+  //     <EmployeeDashboard user={user} onSignout={handleSignOut} />
+  //     <ManagerDashboard user={user} onSignout={handleSignOut} />
+  //   </>
+  // );
 
   if (!user) {
-    return <Login onLogin={handleLogin} />;
+    return <SignInPage onSignIn={handleSignIn} />;
   }
 
   return user.role === "manager" ? (
-    <ManagerDashboard onLogout={handleLogout} />
+    <ManagerDashboard user={user} onSignout={handleSignOut} />
   ) : (
-    <EmployeeDashboard user={user} onLogout={handleLogout} />
+    <EmployeeDashboard user={user} onSignout={handleSignOut} />
   );
 }
 

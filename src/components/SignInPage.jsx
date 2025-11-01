@@ -5,12 +5,12 @@ const mockUsers = [
   { username: "employee1", password: "qwerty", role: "employee" },
 ];
 
-function Login({ onLogin }) {
+function SignIn({ onSignIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogin = (e) => {
+  const handleSignIn = (e) => {
     e.preventDefault();
 
     const user = mockUsers.find(
@@ -19,7 +19,7 @@ function Login({ onLogin }) {
 
     if (user) {
       setErrorMessage("");
-      onLogin(user);
+      onSignIn(user);
     } else {
       setErrorMessage("Invalid username or password");
     }
@@ -27,8 +27,8 @@ function Login({ onLogin }) {
 
   return (
     <>
-      <div className="login-container">
-        <form onSubmit={handleLogin}>
+      <div className="sign-in-container">
+        <form onSubmit={handleSignIn}>
           <input
             type="text"
             value={username}
@@ -51,4 +51,4 @@ function Login({ onLogin }) {
   );
 }
 
-export default Login;
+export default SignIn;

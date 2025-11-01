@@ -75,6 +75,7 @@ function EmployeeDashboard({ user, onLogout }) {
             <RequestsTable
               requests={requests}
               onDeleteRequest={handleDeleteRequest}
+              mode="employee"
             />
           )}
         </div>

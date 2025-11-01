@@ -1,6 +1,7 @@
 import { useState } from "react";
 import UserForm from "./UserForm";
 import UsersTable from "./UsersTable";
+import RequestsTable from "./RequestsTable";
 
 const mockUsers = [
   {
@@ -33,10 +34,41 @@ const mockUsers = [
   },
 ];
 
+const mockRequests = [
+  {
+    id: 1,
+    dateSubmitted: "2025-10-30",
+    startDate: "2025-12-01",
+    endDate: "2025-12-05",
+    reason: "vacation",
+    status: "pending",
+    employee: "user1",
+  },
+  {
+    id: 2,
+    dateSubmitted: "2025-10-28",
+    startDate: "2025-11-10",
+    endDate: "2025-11-12",
+    reason: "rest",
+    status: "approved",
+    employee: "user2",
+  },
+  {
+    id: 3,
+    dateSubmitted: "2025-10-30",
+    startDate: "2025-11-10",
+    endDate: "2025-11-12",
+    reason: "just because",
+    status: "rejected",
+    employee: "user2",
+  },
+];
+
 function ManagerDashboard({ user, onLogout }) {
   const [users, setUsers] = useState(mockUsers);
   const [showUserForm, setShowUserForm] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
+  const [requests, setRequests] = useState(mockRequests);
 
   const handleCreateUser = () => {
     setShowUserForm(true);
@@ -103,6 +135,18 @@ function ManagerDashboard({ user, onLogout }) {
           )}
         </div>
       )}
+      <div>
+        <h2>Vacation Requests History</h2>
+
+        {requests.length === 0 ? (
+          <p>No requests yet.</p>
+        ) : (
+          <RequestsTable
+            requests={requests.filter((req) => req.status !== "pending")}
+            mode="manager"
+          />
+        )}
+      </div>
     </div>
   );
 }

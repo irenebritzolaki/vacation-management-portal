@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./SignInPage.css";
 
 const mockUsers = [
   { username: "manager1", password: "123456", role: "manager" },
@@ -27,7 +28,7 @@ function SignIn({ onSignIn }) {
 
   return (
     <>
-      <div className="sign-in-container">
+      <div className="sign-in-page">
         <form onSubmit={handleSignIn}>
           <input
             type="text"

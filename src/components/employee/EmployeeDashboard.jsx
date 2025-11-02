@@ -58,15 +58,17 @@ function EmployeeDashboard({ user, onSignout }) {
   return (
     <div className="dashboard">
       <Header userName={user.username} onSignOut={onSignout} />
-      <div className="container">
+      <div className="dashboard-main">
         {showForm ? (
           <NewRequestForm
             onCancel={() => setShowForm(false)}
             onSubmit={handleSubmitNewRequest}
           />
         ) : (
-          <div>
-            <h2>Your Vacation Requests</h2>
+          <section className="requests">
+            <header className="section-header">
+              <h2>Your Vacation Requests</h2>
+            </header>
             <button onClick={handleNewRequest}>New Request</button>
 
             {requests.length === 0 ? (
@@ -78,7 +80,7 @@ function EmployeeDashboard({ user, onSignout }) {
                 mode="employee"
               />
             )}
-          </div>
+          </section>
         )}
       </div>
     </div>

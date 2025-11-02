@@ -3,6 +3,7 @@ import UserForm from "./UserForm";
 import UsersTable from "./UsersTable";
 import RequestsTable from "../common/RequestsTable";
 import Header from "../common/Header";
+import "./ManagerDashboard.css";
 
 const mockUsers = [
   {
@@ -108,23 +109,28 @@ function ManagerDashboard({ user, onSignout }) {
   return (
     <div className="dashboard">
       <Header userName={user.username} onSignOut={onSignout} />
-      <div className="container">
-        {showUserForm ? (
-          <UserForm
-            onSubmit={editingUser ? handleUpdateUser : handleSubmitCreateUser}
-            onCancel={() => {
-              setEditingUser(null);
-              setShowUserForm(false);
-            }}
-            mode={editingUser ? "edit" : "create"}
-            initialData={editingUser}
-          />
-        ) : (
-          <div>
-            <h2>Registered users</h2>
-            <button onClick={handleCreateUser}>Create user</button>
 
-            {users.length === 0 ? (
+      <main className="dashboard-main">
+        <section className="left-panel">
+          <div className="users">
+            <header className="section-header">
+              <h2>Registered users</h2>
+              <button onClick={handleCreateUser}>Create user</button>
+            </header>
+
+            {showUserForm ? (
+              <UserForm
+                onSubmit={
+                  editingUser ? handleUpdateUser : handleSubmitCreateUser
+                }
+                onCancel={() => {
+                  setEditingUser(null);
+                  setShowUserForm(false);
+                }}
+                mode={editingUser ? "edit" : "create"}
+                initialData={editingUser}
+              />
+            ) : users.length === 0 ? (
               <p>No registered users yet.</p>
             ) : (
               <UsersTable
@@ -134,20 +140,29 @@ function ManagerDashboard({ user, onSignout }) {
               />
             )}
           </div>
-        )}
-        <div>
-          <h2>Vacation Requests History</h2>
 
-          {requests.length === 0 ? (
-            <p>No requests yet.</p>
-          ) : (
-            <RequestsTable
-              requests={requests.filter((req) => req.status !== "pending")}
-              mode="manager"
-            />
-          )}
-        </div>
-      </div>
+          <div className="requests">
+            <header className="section-header">
+              <h2>Vacation Requests History</h2>
+            </header>
+
+            {requests.length === 0 ? (
+              <p>No requests yet.</p>
+            ) : (
+              <RequestsTable
+                requests={requests.filter((req) => req.status !== "pending")}
+                mode="manager"
+              />
+            )}
+          </div>
+        </section>
+        <aside className="right-panel">
+          <h3>Pending Requests</h3>
+          <div className="pending-list">
+            <p>No pending requests yet.</p>
+          </div>
+        </aside>
+      </main>
     </div>
   );
 }

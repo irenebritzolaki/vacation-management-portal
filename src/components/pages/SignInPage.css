@@ -1,0 +1,35 @@
+.sign-in-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f7f7fa;
+}
+
+.sign-in-page form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  gap: 10px;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgb(205, 205, 205);
+  width: 300px;
+  text-align: center;
+}
+
+.sign-in-page input {
+  font-size: 1em;
+  padding: 8px;
+}
+
+.sign-in-page .error-message {
+  min-height: 1em;
+  color: red;
+}
+
+.sign-in-page button {
+  align-self: center;
+}

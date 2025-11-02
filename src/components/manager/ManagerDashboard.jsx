@@ -1,9 +1,10 @@
 import { useState } from "react";
+import "./ManagerDashboard.css";
+import Header from "../common/Header";
 import UserForm from "./UserForm";
 import UsersTable from "./UsersTable";
 import RequestsTable from "../common/RequestsTable";
-import Header from "../common/Header";
-import "./ManagerDashboard.css";
+import PendingRequestCard from "./PendingRequestCard";
 
 const mockUsers = [
   {
@@ -71,6 +72,7 @@ function ManagerDashboard({ user, onSignout }) {
   const [showUserForm, setShowUserForm] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [requests, setRequests] = useState(mockRequests);
+  const pendingRequests = requests.filter((req) => req.status === "pending");
 
   const handleCreateUser = () => {
     setShowUserForm(true);
@@ -159,7 +161,18 @@ function ManagerDashboard({ user, onSignout }) {
         <aside className="right-panel">
           <h3>Pending Requests</h3>
           <div className="pending-list">
-            <p>No pending requests yet.</p>
+            {pendingRequests.length === 0 ? (
+              <p>No pending requests yet.</p>
+            ) : (
+              pendingRequests.map((request) => (
+                <PendingRequestCard
+                  key={request.id}
+                  request={request}
+                  onAcceptRequest={() => handleAcceptRequest(request.id)}
+                  onRejectRequest={() => handleRejectRequest(request.id)}
+                />
+              ))
+            )}
           </div>
         </aside>
       </main>

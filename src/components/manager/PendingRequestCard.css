@@ -1,0 +1,50 @@
+.pending-request-card {
+  background: #f9f9fb;
+  border-radius: 8px;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-left: 6px solid #2b2d42;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+}
+
+.request-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.request-row .label {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.actions button {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.actions button:first-child {
+  background-color: #38a169; /* green */
+  color: white;
+}
+
+.actions button:last-child {
+  background-color: #e53e3e; /* red */
+  color: white;
+}
+
+.actions button:hover {
+  opacity: 0.85;
+}

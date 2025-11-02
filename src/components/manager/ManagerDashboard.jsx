@@ -108,6 +108,20 @@ function ManagerDashboard({ user, onSignout }) {
     // todo: delete associated data
   };
 
+  const handleAcceptRequest = (requestID) => {
+    const updatedRequestsList = requests.map((req) =>
+      req.id === requestID ? { ...req, status: "approved" } : req
+    );
+    setRequests(updatedRequestsList);
+  };
+
+  const handleRejectRequest = (requestID) => {
+    const updatedRequestsList = requests.map((req) =>
+      req.id === requestID ? { ...req, status: "rejected" } : req
+    );
+    setRequests(updatedRequestsList);
+  };
+
   return (
     <div className="dashboard">
       <Header userName={user.username} onSignOut={onSignout} />

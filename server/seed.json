@@ -1,0 +1,126 @@
+{
+  "users": [
+    {
+      "id": "aaa",
+      "employeeID": 1002457,
+      "username": "jdoe",
+      "email": "jdoe@company.com",
+      "password": "password123",
+      "role": "employee"
+    },
+    {
+      "id": "bbb",
+      "employeeID": 1002981,
+      "username": "asmith",
+      "email": "asmith@company.com",
+      "password": "securepass",
+      "role": "employee"
+    },
+    {
+      "id": "ccc",
+      "employeeID": 1003104,
+      "username": "mnguyen",
+      "email": "mnguyen@company.com",
+      "password": "mypassword",
+      "role": "employee"
+    },
+    {
+      "id": "ddd",
+      "employeeID": 1015104,
+      "username": "employee1",
+      "email": "employee1@company.com",
+      "password": "qwerty",
+      "role": "employee"
+    },
+    {
+      "id": "eee",
+      "employeeID": 1003568,
+      "username": "rpatelakis",
+      "email": "rpatel@company.com",
+      "password": "qwerty6789",
+      "role": "employee"
+    },
+    {
+      "id": "fff",
+      "employeeID": 1004127,
+      "username": "manager1",
+      "email": "manager1@company.com",
+      "password": "123456",
+      "role": "manager"
+    }
+  ],
+  "requests": [
+    {
+      "id": "a1ww",
+      "dateSubmitted": "2025-10-15",
+      "startDate": "2025-11-20",
+      "endDate": "2025-11-25",
+      "reason": "Family vacation.",
+      "status": "approved",
+      "employeeID": 1002457
+    },
+    {
+      "id": "dads",
+      "dateSubmitted": "2025-09-30",
+      "startDate": "2025-12-10",
+      "endDate": "2025-12-20",
+      "reason": "Winter holidays.",
+      "status": "pending",
+      "employeeID": 1002981
+    },
+    {
+      "id": "slss",
+      "dateSubmitted": "2025-08-12",
+      "startDate": "2025-09-01",
+      "endDate": "2025-09-05",
+      "reason": "Medical leave.",
+      "status": "approved",
+      "employeeID": 1003104
+    },
+    {
+      "id": "8has",
+      "dateSubmitted": "2025-11-01",
+      "startDate": "2025-11-10",
+      "endDate": "2025-11-12",
+      "reason": "Personal matters.",
+      "status": "rejected",
+      "employeeID": 1003568
+    },
+    {
+      "id": "1f1f",
+      "dateSubmitted": "2025-10-20",
+      "startDate": "2025-12-24",
+      "endDate": "2026-01-02",
+      "reason": "Family trip.",
+      "status": "pending",
+      "employeeID": 1002457
+    },
+    {
+      "id": "7872",
+      "dateSubmitted": "2025-11-03",
+      "status": "accepted",
+      "employeeID": 1015104,
+      "startDate": "2025-11-17",
+      "endDate": "2025-11-19",
+      "reason": "new req"
+    },
+    {
+      "id": "cb4f",
+      "dateSubmitted": "2025-11-03",
+      "status": "rejected",
+      "employeeID": 1015104,
+      "startDate": "2025-11-19",
+      "endDate": "2025-11-22",
+      "reason": "newest"
+    },
+    {
+      "id": "ce88",
+      "dateSubmitted": "2025-11-03",
+      "status": "approved",
+      "employeeID": 1003568,
+      "startDate": "2025-11-05",
+      "endDate": "2025-11-05",
+      "reason": "pls"
+    }
+  ]
+}

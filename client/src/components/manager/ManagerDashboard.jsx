@@ -17,14 +17,27 @@ function ManagerDashboard({ user, onSignout }) {
     setShowUserForm(true);
   };
 
-  const handleSubmitCreateUser = (newUserData) => {
+  const handleSubmitCreateUser = async (newUserData) => {
     const newUser = {
-      id: Date.now(),
+      // id: Date.now(),
       ...newUserData,
     };
 
-    setUsers([...users, newUser]);
-    setShowUserForm(false);
+    try {
+      const res = await fetch("http://localhost:3000/users", {
+        method: "POST",
+        body: JSON.stringify(newUser),
+      });
+
+      if (!res.ok) throw new Error("Failed to create new user");
+
+      const savedUser = await res.json();
+
+      setUsers([...users, savedUser]);
+      setShowUserForm(false);
+    } catch (error) {
+      console.error("Error creating new user:", error);
+    }
   };
 
   const handleEditUser = (userToEdit) => {
@@ -32,18 +45,40 @@ function ManagerDashboard({ user, onSignout }) {
     setShowUserForm(true);
   };
 
-  const handleUpdateUser = (updatedUser) => {
-    const updatedUserList = users.map((u) =>
-      u.id === updatedUser.id ? updatedUser : u
-    );
-    setUsers(updatedUserList);
-    setEditingUser(null);
-    setShowUserForm(false);
+  const handleUpdateUser = async (updatedUser) => {
+    try {
+      const res = await fetch(`http://localhost:3000/users/${updatedUser.id}`, {
+        method: "PUT",
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (!res.ok) throw new Error("Failed to update user");
+
+      const updatedUserList = users.map((u) =>
+        u.id === updatedUser.id ? updatedUser : u
+      );
+      setUsers(updatedUserList);
+      setEditingUser(null);
+      setShowUserForm(false);
+    } catch (error) {
+      console.error("Error creating new user:", error);
+    }
   };
 
-  const handleDeleteUser = (userID) => {
-    const updatedUserList = users.filter((u) => u.id !== userID);
-    setUsers(updatedUserList);
+  const handleDeleteUser = async (userID) => {
+    try {
+      const res = await fetch(`http://localhost:3000/users/${userID}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Failed to delete user");
+
+      const updatedUserList = users.filter((u) => u.id !== userID);
+      setUsers(updatedUserList);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+
     // todo: delete associated data
   };
 

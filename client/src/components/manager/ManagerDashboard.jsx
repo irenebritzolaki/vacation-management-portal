@@ -6,6 +6,7 @@ import UserForm from "./UserForm";
 import UsersTable from "./UsersTable";
 import RequestsTable from "../common/RequestsTable";
 import PendingRequestCard from "./PendingRequestCard";
+import Modal from "../common/Modal";
 import {
   changeRequestsStatus,
   createUser,
@@ -117,19 +118,7 @@ function ManagerDashboard({ user, onSignout }) {
               <button onClick={handleCreateUser}>Create user</button>
             </header>
 
-            {showUserForm ? (
-              <UserForm
-                onSubmit={
-                  editingUser ? handleUpdateUser : handleSubmitCreateUser
-                }
-                onCancel={() => {
-                  setEditingUser(null);
-                  setShowUserForm(false);
-                }}
-                mode={editingUser ? "edit" : "create"}
-                initialData={editingUser}
-              />
-            ) : users.length === 0 ? (
+            {users.length === 0 ? (
               <p>No registered users yet.</p>
             ) : (
               <UsersTable
@@ -157,6 +146,7 @@ function ManagerDashboard({ user, onSignout }) {
             )}
           </div>
         </section>
+
         <aside className="right-panel">
           <header className="section-header">
             <Loader size={22} />
@@ -179,6 +169,18 @@ function ManagerDashboard({ user, onSignout }) {
           </div>
         </aside>
       </main>
+
+      <Modal isOpen={showUserForm}>
+        <UserForm
+          onSubmit={editingUser ? handleUpdateUser : handleSubmitCreateUser}
+          onCancel={() => {
+            setEditingUser(null);
+            setShowUserForm(false);
+          }}
+          mode={editingUser ? "edit" : "create"}
+          initialData={editingUser}
+        />
+      </Modal>
     </div>
   );
 }

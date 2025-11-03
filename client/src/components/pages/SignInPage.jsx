@@ -1,3 +1,4 @@
+import { API_URL } from "../../api";
 import { useState, useEffect } from "react";
 import "./SignInPage.css";
 
@@ -11,7 +12,7 @@ function SignIn({ onSignIn }) {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/users?username=${username}&password=${password}`
+        `${API_URL}/users?username=${username}&password=${password}`
       );
       const users = await res.json();
 

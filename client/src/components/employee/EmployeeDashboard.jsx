@@ -3,6 +3,7 @@ import { History } from "lucide-react";
 import NewRequestForm from "./NewRequestForm";
 import RequestsTable from "../common/RequestsTable";
 import Header from "../common/Header";
+import { getRequestsByUserID, createRequest, deleteRequest } from "../../api";
 
 function EmployeeDashboard({ user, onSignout }) {
   const [requests, setRequests] = useState([]);
@@ -15,61 +16,35 @@ function EmployeeDashboard({ user, onSignout }) {
   const handleSubmitNewRequest = async (newRequestData) => {
     const today = new Date().toISOString().split("T")[0];
     const newRequest = {
-      // id: Date.now(), // let server give its own ids
       dateSubmitted: today,
       status: "pending",
-      employeeID: user.employeeID,
+      userID: user.id,
       ...newRequestData,
     };
 
-    try {
-      const res = await fetch("http://localhost:3000/requests", {
-        method: "POST",
-        body: JSON.stringify(newRequest),
-      });
-
-      if (!res.ok) throw new Error("Failed to submit request");
-
-      const savedRequest = await res.json();
-      setRequests([...requests, savedRequest]);
+    createRequest(newRequest).then((result) => {
+      setRequests([...requests, result]);
       setShowForm(false);
-    } catch (error) {
-      console.error("Error submitting request:", error);
-    }
+    });
   };
 
   const handleDeleteRequest = async (requestID) => {
-    try {
-      const res = await fetch(`http://localhost:3000/requests/${requestID}`, {
-        method: "DELETE",
-      });
-
-      if (!res.ok) throw new Error("Failed to delete request");
-
+    deleteRequest(requestID).then(() => {
       const updatedRequests = requests.filter((req) => req.id !== requestID);
       setRequests(updatedRequests);
-    } catch (error) {
-      console.error("Error deleting request:", error);
-    }
+    });
   };
 
-  const getRequests = () => {
-    var requestOptions = {
-      method: "GET",
-    };
-
-    fetch(`http://localhost:3000/requests?userID=${user.id}`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => setRequests(result))
-      .catch((error) => console.log("error on getRequests", error));
+  const loadRequests = async () => {
+    getRequestsByUserID(user.id).then((result) => setRequests(result));
   };
 
   const handleReload = () => {
-    getRequests();
+    loadRequests();
   };
 
   useEffect(() => {
-    getRequests();
+    loadRequests();
   }, []);
 
   return (

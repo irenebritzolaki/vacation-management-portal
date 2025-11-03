@@ -140,6 +140,11 @@ function ManagerDashboard({ user, onSignout }) {
       .catch((error) => console.log("error on getRequests", error));
   };
 
+  const handleReload = () => {
+    getUsers();
+    getRequests();
+  };
+
   useEffect(() => {
     getUsers();
     getRequests();
@@ -147,7 +152,11 @@ function ManagerDashboard({ user, onSignout }) {
 
   return (
     <div className="dashboard">
-      <Header userName={user.username} onSignOut={onSignout} />
+      <Header
+        userName={user.username}
+        onSignOut={onSignout}
+        onReload={handleReload}
+      />
 
       <main className="dashboard-main">
         <section className="left-panel">

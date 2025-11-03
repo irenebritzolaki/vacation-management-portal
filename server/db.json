@@ -98,7 +98,7 @@
     {
       "id": "7872",
       "dateSubmitted": "2025-11-03",
-      "status": "accepted",
+      "status": "approved",
       "employeeID": 1015104,
       "startDate": "2025-11-17",
       "endDate": "2025-11-19",
@@ -116,11 +116,20 @@
     {
       "id": "ce88",
       "dateSubmitted": "2025-11-03",
-      "status": "approved",
+      "status": "pending",
       "employeeID": 1003568,
       "startDate": "2025-11-05",
       "endDate": "2025-11-05",
       "reason": "pls"
+    },
+    {
+      "id": "8a29",
+      "dateSubmitted": "2025-11-03",
+      "status": "rejected",
+      "employeeID": 1015104,
+      "startDate": "2025-11-14",
+      "endDate": "2025-11-26",
+      "reason": "fdsa"
     }
   ]
 }

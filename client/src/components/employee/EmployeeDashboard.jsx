@@ -66,13 +66,21 @@ function EmployeeDashboard({ user, onSignout }) {
       .catch((error) => console.log("error on getRequests", error));
   };
 
+  const handleReload = () => {
+    getRequests();
+  };
+
   useEffect(() => {
     getRequests();
   }, []);
 
   return (
     <div className="dashboard">
-      <Header userName={user.username} onSignOut={onSignout} />
+      <Header
+        userName={user.username}
+        onSignOut={onSignout}
+        onReload={handleReload}
+      />
       <div className="dashboard-main">
         {showForm ? (
           <NewRequestForm

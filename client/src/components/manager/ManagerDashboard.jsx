@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./ManagerDashboard.css";
 import Header from "../common/Header";
 import UserForm from "./UserForm";
@@ -6,72 +6,11 @@ import UsersTable from "./UsersTable";
 import RequestsTable from "../common/RequestsTable";
 import PendingRequestCard from "./PendingRequestCard";
 
-const mockUsers = [
-  {
-    id: 1,
-    username: "user1",
-    email: "user1@domain.com",
-    password: "123456",
-    employeeID: 7654321,
-  },
-  {
-    id: 2,
-    username: "user2",
-    email: "user2@domain.com",
-    password: "dfhgjh1",
-    employeeID: 1234567,
-  },
-  {
-    id: 3,
-    username: "user3",
-    email: "user3@domain.com",
-    password: "qwerty",
-    employeeID: 2255334,
-  },
-  {
-    id: 4,
-    username: "user4",
-    email: "user4@domain.com",
-    password: "pa$$word",
-    employeeID: 2883112,
-  },
-];
-
-const mockRequests = [
-  {
-    id: 1,
-    dateSubmitted: "2025-10-30",
-    startDate: "2025-12-01",
-    endDate: "2025-12-05",
-    reason: "vacation",
-    status: "pending",
-    employee: "user1",
-  },
-  {
-    id: 2,
-    dateSubmitted: "2025-10-28",
-    startDate: "2025-11-10",
-    endDate: "2025-11-12",
-    reason: "rest",
-    status: "approved",
-    employee: "user2",
-  },
-  {
-    id: 3,
-    dateSubmitted: "2025-10-30",
-    startDate: "2025-11-10",
-    endDate: "2025-11-12",
-    reason: "just because",
-    status: "rejected",
-    employee: "user2",
-  },
-];
-
 function ManagerDashboard({ user, onSignout }) {
-  const [users, setUsers] = useState(mockUsers);
+  const [users, setUsers] = useState([]);
   const [showUserForm, setShowUserForm] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
-  const [requests, setRequests] = useState(mockRequests);
+  const [requests, setRequests] = useState([]);
   const pendingRequests = requests.filter((req) => req.status === "pending");
 
   const handleCreateUser = () => {
@@ -121,6 +60,33 @@ function ManagerDashboard({ user, onSignout }) {
     );
     setRequests(updatedRequestsList);
   };
+
+  const getUsers = () => {
+    var requestOptions = {
+      method: "GET",
+    };
+
+    fetch("http://localhost:3000/users", requestOptions)
+      .then((response) => response.json())
+      .then((result) => setUsers(result))
+      .catch((error) => console.log("error on getUsers", error));
+  };
+
+  const getRequests = () => {
+    var requestOptions = {
+      method: "GET",
+    };
+
+    fetch("http://localhost:3000/requests", requestOptions)
+      .then((response) => response.json())
+      .then((result) => setRequests(result))
+      .catch((error) => console.log("error on getRequests", error));
+  };
+
+  useEffect(() => {
+    getUsers();
+    getRequests();
+  }, []);
 
   return (
     <div className="dashboard">

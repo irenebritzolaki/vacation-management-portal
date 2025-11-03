@@ -47,18 +47,40 @@ function ManagerDashboard({ user, onSignout }) {
     // todo: delete associated data
   };
 
-  const handleAcceptRequest = (requestID) => {
-    const updatedRequestsList = requests.map((req) =>
-      req.id === requestID ? { ...req, status: "approved" } : req
-    );
-    setRequests(updatedRequestsList);
+  const handleAcceptRequest = async (requestID) => {
+    try {
+      const res = await fetch(`http://localhost:3000/requests/${requestID}`, {
+        method: "PATCH",
+        body: JSON.stringify({ status: "approved" }),
+      });
+
+      if (!res.ok) throw new Error("Failed to approve request");
+
+      const updatedRequestsList = requests.map((req) =>
+        req.id === requestID ? { ...req, status: "approved" } : req
+      );
+      setRequests(updatedRequestsList);
+    } catch (error) {
+      console.error("Error approving request:", error);
+    }
   };
 
-  const handleRejectRequest = (requestID) => {
-    const updatedRequestsList = requests.map((req) =>
-      req.id === requestID ? { ...req, status: "rejected" } : req
-    );
-    setRequests(updatedRequestsList);
+  const handleRejectRequest = async (requestID) => {
+    try {
+      const res = await fetch(`http://localhost:3000/requests/${requestID}`, {
+        method: "PATCH",
+        body: JSON.stringify({ status: "rejected" }),
+      });
+
+      if (!res.ok) throw new Error("Failed to reject request");
+
+      const updatedRequestsList = requests.map((req) =>
+        req.id === requestID ? { ...req, status: "rejected" } : req
+      );
+      setRequests(updatedRequestsList);
+    } catch (error) {
+      console.error("Error rejecting request:", error);
+    }
   };
 
   const getUsers = () => {

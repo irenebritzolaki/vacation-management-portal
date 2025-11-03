@@ -1,37 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NewRequestForm from "./NewRequestForm";
 import RequestsTable from "../common/RequestsTable";
 import Header from "../common/Header";
 
-const mockRequests = [
-  {
-    id: 1,
-    dateSubmitted: "2025-10-30",
-    startDate: "2025-12-01",
-    endDate: "2025-12-05",
-    reason: "vacation",
-    status: "pending",
-  },
-  {
-    id: 2,
-    dateSubmitted: "2025-10-28",
-    startDate: "2025-11-10",
-    endDate: "2025-11-12",
-    reason: "rest",
-    status: "approved",
-  },
-  {
-    id: 3,
-    dateSubmitted: "2025-10-30",
-    startDate: "2025-11-10",
-    endDate: "2025-11-12",
-    reason: "just because",
-    status: "rejected",
-  },
-];
-
 function EmployeeDashboard({ user, onSignout }) {
-  const [requests, setRequests] = useState(mockRequests);
+  const [requests, setRequests] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
   const handleNewRequest = () => {
@@ -54,6 +27,24 @@ function EmployeeDashboard({ user, onSignout }) {
     const updatedRequests = requests.filter((req) => req.id !== requestID);
     setRequests(updatedRequests);
   };
+
+  const getRequests = () => {
+    var requestOptions = {
+      method: "GET",
+    };
+
+    fetch(
+      `http://localhost:3000/requests?employeeID=${user.employeeID}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => setRequests(result))
+      .catch((error) => console.log("error on getRequests", error));
+  };
+
+  useEffect(() => {
+    getRequests();
+  }, []);
 
   return (
     <div className="dashboard">

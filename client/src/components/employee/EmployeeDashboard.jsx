@@ -57,10 +57,7 @@ function EmployeeDashboard({ user, onSignout }) {
       method: "GET",
     };
 
-    fetch(
-      `http://localhost:3000/requests?employeeID=${user.employeeID}`,
-      requestOptions
-    )
+    fetch(`http://localhost:3000/requests?userID=${user.id}`, requestOptions)
       .then((response) => response.json())
       .then((result) => setRequests(result))
       .catch((error) => console.log("error on getRequests", error));

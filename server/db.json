@@ -33,14 +33,6 @@
       "role": "employee"
     },
     {
-      "id": "eee",
-      "employeeID": 1003568,
-      "username": "rpatelakis",
-      "email": "rpatel@company.com",
-      "password": "qwerty6789",
-      "role": "employee"
-    },
-    {
       "id": "fff",
       "employeeID": 1004127,
       "username": "manager1",
@@ -57,7 +49,7 @@
       "endDate": "2025-11-25",
       "reason": "Family vacation.",
       "status": "approved",
-      "employeeID": 1002457
+      "userID": "aaa"
     },
     {
       "id": "dads",
@@ -66,7 +58,7 @@
       "endDate": "2025-12-20",
       "reason": "Winter holidays.",
       "status": "pending",
-      "employeeID": 1002981
+      "userID": "bbb"
     },
     {
       "id": "slss",
@@ -75,16 +67,7 @@
       "endDate": "2025-09-05",
       "reason": "Medical leave.",
       "status": "approved",
-      "employeeID": 1003104
-    },
-    {
-      "id": "8has",
-      "dateSubmitted": "2025-11-01",
-      "startDate": "2025-11-10",
-      "endDate": "2025-11-12",
-      "reason": "Personal matters.",
-      "status": "rejected",
-      "employeeID": 1003568
+      "userID": "ccc"
     },
     {
       "id": "1f1f",
@@ -93,43 +76,25 @@
       "endDate": "2026-01-02",
       "reason": "Family trip.",
       "status": "pending",
-      "employeeID": 1002457
+      "userID": "aaa"
     },
     {
       "id": "7872",
       "dateSubmitted": "2025-11-03",
-      "status": "approved",
-      "employeeID": 1015104,
       "startDate": "2025-11-17",
       "endDate": "2025-11-19",
-      "reason": "new req"
+      "reason": "new req",
+      "status": "approved",
+      "userID": "ddd"
     },
     {
       "id": "cb4f",
       "dateSubmitted": "2025-11-03",
-      "status": "rejected",
-      "employeeID": 1015104,
       "startDate": "2025-11-19",
       "endDate": "2025-11-22",
-      "reason": "newest"
-    },
-    {
-      "id": "ce88",
-      "dateSubmitted": "2025-11-03",
-      "status": "pending",
-      "employeeID": 1003568,
-      "startDate": "2025-11-05",
-      "endDate": "2025-11-05",
-      "reason": "pls"
-    },
-    {
-      "id": "8a29",
-      "dateSubmitted": "2025-11-03",
+      "reason": "newest",
       "status": "rejected",
-      "employeeID": 1015104,
-      "startDate": "2025-11-14",
-      "endDate": "2025-11-26",
-      "reason": "fdsa"
+      "userID": "ddd"
     }
   ]
 }

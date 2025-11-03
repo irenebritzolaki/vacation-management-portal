@@ -67,19 +67,32 @@ function ManagerDashboard({ user, onSignout }) {
 
   const handleDeleteUser = async (userID) => {
     try {
-      const res = await fetch(`http://localhost:3000/users/${userID}`, {
+      // first delete the associated data
+      const res = await fetch(
+        `http://localhost:3000/requests?userID=${userID}`
+      );
+      const userRequests = await res.json();
+
+      await Promise.all(
+        userRequests.map((req) =>
+          fetch(`http://localhost:3000/requests/${req.id}`, {
+            method: "DELETE",
+          })
+        )
+      );
+
+      await fetch(`http://localhost:3000/users/${userID}`, {
         method: "DELETE",
       });
 
-      if (!res.ok) throw new Error("Failed to delete user");
-
       const updatedUserList = users.filter((u) => u.id !== userID);
       setUsers(updatedUserList);
+
+      const updatedRequests = requests.filter((req) => req.userID !== userID);
+      setRequests(updatedRequests);
     } catch (error) {
       console.error("Error deleting user:", error);
     }
-
-    // todo: delete associated data
   };
 
   const handleAcceptRequest = async (requestID) => {

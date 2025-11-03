@@ -1,4 +1,9 @@
 function RequestRow({ request, users, onDeleteRequest, mode }) {
+  const formatDate = (date) => {
+    let parts = date.split("-");
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  };
+
   const countDays = (startDate, endDate) => {
     const timeDifference = new Date(endDate) - new Date(startDate);
     const daysDifference = timeDifference / (1000 * 3600 * 24);
@@ -11,10 +16,10 @@ function RequestRow({ request, users, onDeleteRequest, mode }) {
 
   return (
     <tr>
-      <td>{request.dateSubmitted}</td>
+      <td>{formatDate(request.dateSubmitted)}</td>
       <td>{mode === "manager" && getUserDetails(request.userID).username}</td>
       <td>
-        {request.startDate} -&gt; {request.endDate}
+        {formatDate(request.startDate)} &rArr; {formatDate(request.endDate)}
       </td>
       <td>{countDays(request.startDate, request.endDate)}</td>
       <td>{request.reason}</td>

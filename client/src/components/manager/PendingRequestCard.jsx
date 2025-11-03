@@ -6,6 +6,11 @@ function PendingRequestCard({
   onApproveRequest,
   onRejectRequest,
 }) {
+  const formatDate = (date) => {
+    let parts = date.split("-");
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  };
+
   const countDays = (startDate, endDate) => {
     const timeDifference = new Date(endDate) - new Date(startDate);
     const daysDifference = timeDifference / (1000 * 3600 * 24);
@@ -20,7 +25,7 @@ function PendingRequestCard({
     <div className="pending-request-card">
       <div className="request-row">
         <span className="label">Submitted:</span>
-        <span>{request.dateSubmitted}</span>
+        <span>{formatDate(request.dateSubmitted)}</span>
       </div>
       <div className="request-row">
         <span className="label">Employee:</span>
@@ -29,7 +34,7 @@ function PendingRequestCard({
       <div className="request-row">
         <span className="label">Dates:</span>
         <span>
-          {request.startDate} -&gt; {request.endDate} (
+          {formatDate(request.startDate)} &rArr; {formatDate(request.endDate)} (
           {countDays(request.startDate, request.endDate)} days)
         </span>
       </div>

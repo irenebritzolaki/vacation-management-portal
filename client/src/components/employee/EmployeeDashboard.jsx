@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { History } from "lucide-react";
 import NewRequestForm from "./NewRequestForm";
 import RequestsTable from "../common/RequestsTable";
 import Header from "../common/Header";
@@ -87,6 +88,7 @@ function EmployeeDashboard({ user, onSignout }) {
         ) : (
           <section className="requests">
             <header className="section-header">
+              <History />
               <h2>Your Vacation Requests</h2>
             </header>
             <button onClick={handleNewRequest}>New Request</button>

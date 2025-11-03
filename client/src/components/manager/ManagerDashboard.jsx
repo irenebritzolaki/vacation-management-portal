@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Users, History, Loader } from "lucide-react";
 import "./ManagerDashboard.css";
 import Header from "../common/Header";
 import UserForm from "./UserForm";
@@ -175,6 +176,7 @@ function ManagerDashboard({ user, onSignout }) {
         <section className="left-panel">
           <div className="users">
             <header className="section-header">
+              <Users size={25} />
               <h2>Registered users</h2>
               <button onClick={handleCreateUser}>Create user</button>
             </header>
@@ -204,6 +206,7 @@ function ManagerDashboard({ user, onSignout }) {
 
           <div className="requests">
             <header className="section-header">
+              <History size={25} />
               <h2>Vacation Requests History</h2>
             </header>
 
@@ -218,7 +221,10 @@ function ManagerDashboard({ user, onSignout }) {
           </div>
         </section>
         <aside className="right-panel">
-          <h3>Pending Requests</h3>
+          <header className="section-header">
+            <Loader size={22} />
+            <h3>Pending Requests</h3>
+          </header>
           <div className="pending-list">
             {pendingRequests.length === 0 ? (
               <p>No pending requests yet.</p>

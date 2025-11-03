@@ -14,6 +14,7 @@ import {
   getAllRequests,
   getAllUsers,
   getRequestsByUserID,
+  deleteRequest,
 } from "../../api";
 
 function ManagerDashboard({ user, onSignout }) {
@@ -52,13 +53,7 @@ function ManagerDashboard({ user, onSignout }) {
 
   const handleDeleteUser = async (userID) => {
     const userRequests = await getRequestsByUserID(userID);
-    await Promise.all(
-      userRequests.map((req) =>
-        fetch(`${API_URL}/requests/${req.id}`, {
-          method: "DELETE",
-        })
-      )
-    );
+    await Promise.all(userRequests.map((req) => deleteRequest(req.id)));
 
     deleteUser(userID).then(() => {
       const updatedUserList = users.filter((u) => u.id !== userID);

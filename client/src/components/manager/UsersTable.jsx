@@ -1,6 +1,11 @@
 function UserRow({ user, onEditUser, onDeleteUser }) {
+  const capitalizeFirstLetter = function (word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  };
+
   return (
     <tr>
+      <td>{capitalizeFirstLetter(user.role)}</td>
       <td>{user.employeeID}</td>
       <td>{user.username}</td>
       <td>{user.email}</td>
@@ -18,6 +23,7 @@ export default function UsersTable({ users, onEditUser, onDeleteUser }) {
     <table>
       <thead>
         <tr>
+          <th>Role</th>
           <th>Employee ID</th>
           <th>Username</th>
           <th>Email</th>

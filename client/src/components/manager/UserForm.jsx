@@ -20,6 +20,28 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
     <form onSubmit={handleSubmit}>
       <h3>{mode === "create" ? "Create New User" : "Update User"}</h3>
       <div>
+        <label>
+          <input
+            type="radio"
+            name="role"
+            value="manager"
+            checked={formData.role === "manager"}
+            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+          />{" "}
+          Manager
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="role"
+            value="employee"
+            checked={formData.role === "employee"}
+            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+          />{" "}
+          Employee
+        </label>
+      </div>
+      <div>
         <label>Employee ID: </label>
         <input
           type="text"

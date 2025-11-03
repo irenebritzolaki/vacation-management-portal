@@ -156,6 +156,7 @@ function ManagerDashboard({ user, onSignout }) {
             ) : (
               <RequestsTable
                 requests={requests.filter((req) => req.status !== "pending")}
+                users={users}
                 mode="manager"
               />
             )}
@@ -173,6 +174,7 @@ function ManagerDashboard({ user, onSignout }) {
               pendingRequests.map((request) => (
                 <PendingRequestCard
                   key={request.id}
+                  users={users}
                   request={request}
                   onApproveRequest={() => handleApproveRequest(request.id)}
                   onRejectRequest={() => handleRejectRequest(request.id)}

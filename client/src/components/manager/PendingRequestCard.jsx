@@ -1,10 +1,19 @@
 import "./PendingRequestCard.css";
 
-function PendingRequestCard({ request, onApproveRequest, onRejectRequest }) {
+function PendingRequestCard({
+  request,
+  users,
+  onApproveRequest,
+  onRejectRequest,
+}) {
   const countDays = (startDate, endDate) => {
     const timeDifference = new Date(endDate) - new Date(startDate);
     const daysDifference = timeDifference / (1000 * 3600 * 24);
     return daysDifference + 1; // count both start and end dates
+  };
+
+  const getUserDetails = (userID) => {
+    return users.find((u) => u.id === userID);
   };
 
   return (
@@ -15,7 +24,7 @@ function PendingRequestCard({ request, onApproveRequest, onRejectRequest }) {
       </div>
       <div className="request-row">
         <span className="label">Employee:</span>
-        <span>{request.employee}</span>
+        <span>{getUserDetails(request.userID).username}</span>
       </div>
       <div className="request-row">
         <span className="label">Dates:</span>

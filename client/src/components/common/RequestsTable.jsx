@@ -1,14 +1,18 @@
-function RequestRow({ request, onDeleteRequest, mode }) {
+function RequestRow({ request, users, onDeleteRequest, mode }) {
   const countDays = (startDate, endDate) => {
     const timeDifference = new Date(endDate) - new Date(startDate);
     const daysDifference = timeDifference / (1000 * 3600 * 24);
     return daysDifference + 1; // count both start and end dates
   };
 
+  const getUserDetails = (userID) => {
+    return users.find((u) => u.id === userID);
+  };
+
   return (
     <tr>
       <td>{request.dateSubmitted}</td>
-      <td>{mode === "manager" && request.employee}</td>
+      <td>{mode === "manager" && getUserDetails(request.userID).username}</td>
       <td>
         {request.startDate} -&gt; {request.endDate}
       </td>
@@ -24,7 +28,12 @@ function RequestRow({ request, onDeleteRequest, mode }) {
   );
 }
 
-export default function RequestsTable({ requests, onDeleteRequest, mode }) {
+export default function RequestsTable({
+  requests,
+  users,
+  onDeleteRequest,
+  mode,
+}) {
   return (
     <table>
       <thead>
@@ -42,6 +51,7 @@ export default function RequestsTable({ requests, onDeleteRequest, mode }) {
         {requests.map((req) => (
           <RequestRow
             key={req.id}
+            users={users}
             request={req}
             mode={mode}
             onDeleteRequest={() => onDeleteRequest(req.id)}

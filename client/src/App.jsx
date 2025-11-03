@@ -15,13 +15,6 @@ function App() {
     setUser(null);
   };
 
-  // return (
-  //   <>
-  //     <EmployeeDashboard user={user} onSignout={handleSignOut} />
-  //     <ManagerDashboard user={user} onSignout={handleSignOut} />
-  //   </>
-  // );
-
   if (!user) {
     return <SignInPage onSignIn={handleSignIn} />;
   }

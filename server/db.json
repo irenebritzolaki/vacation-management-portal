@@ -1,0 +1,93 @@
+{
+  "users": [
+    {
+      "employeeID": 1002457,
+      "username": "jdoe",
+      "email": "jdoe@company.com",
+      "password": "password123",
+      "role": "employee"
+    },
+    {
+      "employeeID": 1002981,
+      "username": "asmith",
+      "email": "asmith@company.com",
+      "password": "securepass",
+      "role": "employee"
+    },
+    {
+      "employeeID": 1003104,
+      "username": "mnguyen",
+      "email": "mnguyen@company.com",
+      "password": "mypassword",
+      "role": "employee"
+    },
+    {
+      "employeeID": 1015104,
+      "username": "employee1",
+      "email": "employee1@company.com",
+      "password": "qwerty",
+      "role": "employee"
+    },
+    {
+      "employeeID": 1003568,
+      "username": "rpatel",
+      "email": "rpatel@company.com",
+      "password": "qwerty789",
+      "role": "employee"
+    },
+    {
+      "employeeID": 1004127,
+      "username": "manager1",
+      "email": "manager1@company.com",
+      "password": "123456",
+      "role": "manager"
+    }
+  ],
+  "requests": [
+    {
+      "id": 1,
+      "dateSubmitted": "2025-10-15",
+      "startDate": "2025-11-20",
+      "endDate": "2025-11-25",
+      "reason": "Family vacation.",
+      "status": "approved",
+      "employeeID": 1002457
+    },
+    {
+      "id": 2,
+      "dateSubmitted": "2025-09-30",
+      "startDate": "2025-12-10",
+      "endDate": "2025-12-20",
+      "reason": "Winter holidays.",
+      "status": "pending",
+      "employeeID": 1002981
+    },
+    {
+      "id": 3,
+      "dateSubmitted": "2025-08-12",
+      "startDate": "2025-09-01",
+      "endDate": "2025-09-05",
+      "reason": "Medical leave.",
+      "status": "approved",
+      "employeeID": 1003104
+    },
+    {
+      "id": 4,
+      "dateSubmitted": "2025-11-01",
+      "startDate": "2025-11-10",
+      "endDate": "2025-11-12",
+      "reason": "Personal matters.",
+      "status": "rejected",
+      "employeeID": 1003568
+    },
+    {
+      "id": 5,
+      "dateSubmitted": "2025-10-20",
+      "startDate": "2025-12-24",
+      "endDate": "2026-01-02",
+      "reason": "Family trip.",
+      "status": "pending",
+      "employeeID": 1002457
+    }
+  ]
+}

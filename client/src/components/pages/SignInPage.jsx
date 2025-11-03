@@ -1,28 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./SignInPage.css";
-
-const mockUsers = [
-  { username: "manager1", password: "123456", role: "manager" },
-  { username: "employee1", password: "qwerty", role: "employee" },
-];
 
 function SignIn({ onSignIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
 
-    const user = mockUsers.find(
-      (u) => u.username === username && u.password === password
-    );
+    try {
+      const res = await fetch(
+        `http://localhost:3000/users?username=${username}&password=${password}`
+      );
+      const users = await res.json();
 
-    if (user) {
-      setErrorMessage("");
-      onSignIn(user);
-    } else {
-      setErrorMessage("Invalid username or password");
+      if (users.length > 0) {
+        setErrorMessage("");
+        onSignIn(users[0]);
+      } else {
+        setErrorMessage("Invalid username or password");
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      setErrorMessage("Something went wrong. Please try again.");
     }
   };
 

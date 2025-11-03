@@ -69,7 +69,7 @@ function ManagerDashboard({ user, onSignout }) {
     });
   };
 
-  const handleAcceptRequest = async (requestID) => {
+  const handleApproveRequest = async (requestID) => {
     changeRequestsStatus(requestID, { status: "approved" }).then(() => {
       const updatedRequestsList = requests.map((req) =>
         req.id === requestID ? { ...req, status: "approved" } : req
@@ -174,7 +174,7 @@ function ManagerDashboard({ user, onSignout }) {
                 <PendingRequestCard
                   key={request.id}
                   request={request}
-                  onAcceptRequest={() => handleAcceptRequest(request.id)}
+                  onApproveRequest={() => handleApproveRequest(request.id)}
                   onRejectRequest={() => handleRejectRequest(request.id)}
                 />
               ))

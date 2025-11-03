@@ -1,6 +1,6 @@
 import "./PendingRequestCard.css";
 
-function PendingRequestCard({ request, onAcceptRequest, onRejectRequest }) {
+function PendingRequestCard({ request, onApproveRequest, onRejectRequest }) {
   const countDays = (startDate, endDate) => {
     const timeDifference = new Date(endDate) - new Date(startDate);
     const daysDifference = timeDifference / (1000 * 3600 * 24);
@@ -29,7 +29,7 @@ function PendingRequestCard({ request, onAcceptRequest, onRejectRequest }) {
         <span>{request.reason}</span>
       </div>
       <div className="actions">
-        <button onClick={onAcceptRequest}>Accept</button>
+        <button onClick={onApproveRequest}>Approve</button>
         <button onClick={onRejectRequest}>Reject</button>
       </div>
     </div>

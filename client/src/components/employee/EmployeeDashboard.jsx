@@ -11,21 +11,45 @@ function EmployeeDashboard({ user, onSignout }) {
     setShowForm(true);
   };
 
-  const handleSubmitNewRequest = (newRequestData) => {
+  const handleSubmitNewRequest = async (newRequestData) => {
     const today = new Date().toISOString().split("T")[0];
     const newRequest = {
-      id: Date.now(),
+      // id: Date.now(), // let server give its own ids
       dateSubmitted: today,
       status: "pending",
+      employeeID: user.employeeID,
       ...newRequestData,
     };
-    setRequests([...requests, newRequest]);
-    setShowForm(false);
+
+    try {
+      const res = await fetch("http://localhost:3000/requests", {
+        method: "POST",
+        body: JSON.stringify(newRequest),
+      });
+
+      if (!res.ok) throw new Error("Failed to submit request");
+
+      const savedRequest = await res.json();
+      setRequests([...requests, savedRequest]);
+      setShowForm(false);
+    } catch (error) {
+      console.error("Error submitting request:", error);
+    }
   };
 
-  const handleDeleteRequest = (requestID) => {
-    const updatedRequests = requests.filter((req) => req.id !== requestID);
-    setRequests(updatedRequests);
+  const handleDeleteRequest = async (requestID) => {
+    try {
+      const res = await fetch(`http://localhost:3000/requests/${requestID}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Failed to delete request");
+
+      const updatedRequests = requests.filter((req) => req.id !== requestID);
+      setRequests(updatedRequests);
+    } catch (error) {
+      console.error("Error deleting request:", error);
+    }
   };
 
   const getRequests = () => {

@@ -62,3 +62,11 @@
   display: flex;
   gap: 1rem;
 }
+
+table .password {
+  filter: blur(4px) drop-shadow(2px 0px 5px rgb(114, 114, 114));
+}
+
+table .password:hover {
+  filter: none;
+}

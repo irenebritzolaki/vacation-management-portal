@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../common/Form.css"; // reuse the same CSS for consistent style
 
-function NewRequestForm({ onSubmit, onCancel }) {
+function RequestForm({ onSubmit, onCancel }) {
   const today = new Date().toISOString().split("T")[0];
 
   const [formData, setFormData] = useState({
@@ -83,4 +83,4 @@ function NewRequestForm({ onSubmit, onCancel }) {
   );
 }
 
-export default NewRequestForm;
+export default RequestForm;

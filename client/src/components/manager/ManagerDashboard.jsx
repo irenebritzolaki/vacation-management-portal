@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./ManagerDashboard.css";
 import Header from "../common/Header";
 import UserForm from "./UserForm";
-import NewRequestForm from "../employee/NewRequestForm";
+import RequestForm from "../employee/RequestForm";
 import Modal from "../common/Modal";
 import ConfirmationModal from "../common/ConfirmationModal";
 import {
@@ -211,7 +211,7 @@ function ManagerDashboard({ user, onSignout }) {
       </Modal>
 
       <Modal isOpen={showRequestForm}>
-        <NewRequestForm
+        <RequestForm
           onCancel={() => setShowRequestForm(false)}
           onSubmit={handleSubmitNewRequest}
         />

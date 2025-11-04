@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import NewRequestForm from "./NewRequestForm";
+import RequestForm from "./RequestForm";
 import RequestsSection from "../manager/RequestsSection";
 import Header from "../common/Header";
 import Modal from "../common/Modal";
@@ -81,7 +81,7 @@ function EmployeeDashboard({ user, onSignout }) {
       </div>
 
       <Modal isOpen={showRequestForm}>
-        <NewRequestForm
+        <RequestForm
           onCancel={() => setShowRequestForm(false)}
           onSubmit={handleSubmitNewRequest}
         />

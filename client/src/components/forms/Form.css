@@ -74,3 +74,12 @@
 .dashboard-form button[type="button"]:hover {
   background-color: #e5e7eb;
 }
+
+label.show-password {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 400 !important;
+  margin-top: -0.5rem;
+  font-size: 0.9;
+}

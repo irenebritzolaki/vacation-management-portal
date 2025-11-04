@@ -6,6 +6,7 @@ function SignIn({ onSignIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -35,17 +36,29 @@ function SignIn({ onSignIn }) {
           <input
             type="text"
             value={username}
+            title="Please give your username"
             onChange={(e) => setUsername(e.target.value)}
             placeholder="username"
             required
           />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="password"
-            required
-          />
+          <div>
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              title="Please give your password"
+              placeholder="password"
+              required
+            />
+            <label className="show-password">
+              <input
+                type="checkbox"
+                checked={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+              />
+              Show Password
+            </label>
+          </div>
           <span className="error-message">{errorMessage}</span>
           <button type="submit" className="primary">
             Sign In

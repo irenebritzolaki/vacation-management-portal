@@ -119,3 +119,9 @@ form input:focus {
   border-color: var(--color-accent-hover);
   box-shadow: 0 0 5px rgba(79, 70, 229, 0.3);
 }
+
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+  border: none;
+  box-shadow: none;
+}

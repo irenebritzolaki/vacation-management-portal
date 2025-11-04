@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import { History } from "lucide-react";
 import NewRequestForm from "./NewRequestForm";
-import RequestsTable from "../common/RequestsTable";
+import RequestsSection from "../manager/RequestsSection";
 import Header from "../common/Header";
 import Modal from "../common/Modal";
 import { getRequestsByUserID, createRequest, deleteRequest } from "../../api";
 
 function EmployeeDashboard({ user, onSignout }) {
   const [requests, setRequests] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  const [showRequestForm, setShowRequestForm] = useState(false);
 
   const handleNewRequest = () => {
-    setShowForm(true);
+    setShowRequestForm(true);
   };
 
   const handleSubmitNewRequest = async (newRequestData) => {
@@ -25,7 +24,7 @@ function EmployeeDashboard({ user, onSignout }) {
 
     createRequest(newRequest).then((result) => {
       setRequests([...requests, result]);
-      setShowForm(false);
+      setShowRequestForm(false);
     });
   };
 
@@ -56,28 +55,17 @@ function EmployeeDashboard({ user, onSignout }) {
         onRefresh={handleRefresh}
       />
       <div className="dashboard-main">
-        <section className="requests">
-          <header className="section-header">
-            <History />
-            <h2>Your Vacation Requests</h2>
-          </header>
-          <button onClick={handleNewRequest}>New Request</button>
-
-          {requests.length === 0 ? (
-            <p>No requests submitted yet.</p>
-          ) : (
-            <RequestsTable
-              requests={requests}
-              onDeleteRequest={handleDeleteRequest}
-              mode="employee"
-            />
-          )}
-        </section>
+        <RequestsSection
+          requests={requests}
+          onNewRequest={handleNewRequest}
+          onDeleteRequest={handleDeleteRequest}
+          mode="personal"
+        />
       </div>
 
-      <Modal isOpen={showForm}>
+      <Modal isOpen={showRequestForm}>
         <NewRequestForm
-          onCancel={() => setShowForm(false)}
+          onCancel={() => setShowRequestForm(false)}
           onSubmit={handleSubmitNewRequest}
         />
       </Modal>

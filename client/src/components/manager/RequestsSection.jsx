@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { History, FolderClock, ChevronDown, ChevronRight } from "lucide-react";
+import { History, FolderClock, ChevronRight } from "lucide-react";
 import RequestsTable from "../common/RequestsTable";
 
 function RequestsSection({
@@ -13,21 +13,17 @@ function RequestsSection({
 
   return (
     <div className="section-content">
-      <header className="section-header">
-        <div
-          className="header-left"
-          role="button"
-          onClick={() => setIsOpen((s) => !s)}
-          aria-expanded={isOpen}
-        >
-          {isOpen ? (
-            <ChevronDown
-              size={18}
-              className={`chevron ${isOpen ? "rotated" : ""}`}
-            />
-          ) : (
-            <ChevronRight size={18} className="chevron" />
-          )}
+      <header
+        className="section-header"
+        role="button"
+        onClick={() => setIsOpen((s) => !s)}
+        aria-expanded={isOpen}
+      >
+        <div className="header-left">
+          <ChevronRight
+            size={18}
+            className={`chevron ${isOpen ? "rotated" : ""}`}
+          />
 
           {mode === "personal" ? (
             <History size={20} />

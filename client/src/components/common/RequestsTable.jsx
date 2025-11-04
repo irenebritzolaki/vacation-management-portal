@@ -17,7 +17,7 @@ function RequestRow({ request, users, onDeleteRequest, mode }) {
   return (
     <tr>
       <td>{formatDate(request.dateSubmitted)}</td>
-      <td>{mode === "manager" && getUserDetails(request.userID).username}</td>
+      <td>{mode === "all" && getUserDetails(request.userID).username}</td>
       <td>
         {formatDate(request.startDate)} &rArr; {formatDate(request.endDate)}
       </td>
@@ -25,7 +25,7 @@ function RequestRow({ request, users, onDeleteRequest, mode }) {
       <td>{request.reason}</td>
       <td>{request.status}</td>
       <td>
-        {mode === "employee" && request.status === "pending" && (
+        {mode === "personal" && request.status === "pending" && (
           <button onClick={onDeleteRequest}>Delete</button>
         )}
       </td>
@@ -44,7 +44,7 @@ export default function RequestsTable({
       <thead>
         <tr>
           <th>Date submitted</th>
-          <th>{mode === "manager" && "Employee"}</th>
+          <th>{mode === "all" && "Employee"}</th>
           <th>Dates requested</th>
           <th>Total days</th>
           <th>Reason</th>

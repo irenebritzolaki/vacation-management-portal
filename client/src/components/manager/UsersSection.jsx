@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Users, ChevronDown, ChevronRight } from "lucide-react";
+import { Users, ChevronRight } from "lucide-react";
 import UsersTable from "./UsersTable";
 
 function UsersSection({ users, onCreateUser, onEditUser, onDeleteUser }) {
@@ -7,21 +7,17 @@ function UsersSection({ users, onCreateUser, onEditUser, onDeleteUser }) {
 
   return (
     <div className="section-content">
-      <header className="section-header">
-        <div
-          className="header-left"
-          role="button"
-          onClick={() => setIsOpen((s) => !s)}
-          aria-expanded={isOpen}
-        >
-          {isOpen ? (
-            <ChevronDown
-              size={18}
-              className={`chevron ${isOpen ? "rotated" : ""}`}
-            />
-          ) : (
-            <ChevronRight size={18} className="chevron" />
-          )}
+      <header
+        className="section-header"
+        role="button"
+        onClick={() => setIsOpen((s) => !s)}
+        aria-expanded={isOpen}
+      >
+        <div className="header-left">
+          <ChevronRight
+            size={18}
+            className={`chevron ${isOpen ? "rotated" : ""}`}
+          />
 
           <Users size={22} className="users-icon" />
           <h2>Registered users</h2>

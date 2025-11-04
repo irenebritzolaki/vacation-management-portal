@@ -91,7 +91,7 @@ function ManagerDashboard({ user, onSignout }) {
     getAllRequests().then((result) => setRequests(result));
   };
 
-  const handleReload = () => {
+  const handleRefresh = () => {
     loadUsers();
     loadRequests();
   };
@@ -106,7 +106,7 @@ function ManagerDashboard({ user, onSignout }) {
       <Header
         userName={user.username}
         onSignOut={onSignout}
-        onReload={handleReload}
+        onRefresh={handleRefresh}
       />
 
       <main className="dashboard-main">

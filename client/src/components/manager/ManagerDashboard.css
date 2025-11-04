@@ -6,17 +6,6 @@
   font-family: sans-serif;
 }
 
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #2b2d42;
-  color: white;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-}
-
 .dashboard-main {
   display: grid;
   grid-template-columns: 2fr 1fr;

@@ -3,6 +3,7 @@ import { History } from "lucide-react";
 import NewRequestForm from "./NewRequestForm";
 import RequestsTable from "../common/RequestsTable";
 import Header from "../common/Header";
+import Modal from "../common/Modal";
 import { getRequestsByUserID, createRequest, deleteRequest } from "../../api";
 
 function EmployeeDashboard({ user, onSignout }) {
@@ -39,7 +40,7 @@ function EmployeeDashboard({ user, onSignout }) {
     getRequestsByUserID(user.id).then((result) => setRequests(result));
   };
 
-  const handleReload = () => {
+  const handleRefresh = () => {
     loadRequests();
   };
 
@@ -52,34 +53,34 @@ function EmployeeDashboard({ user, onSignout }) {
       <Header
         userName={user.username}
         onSignOut={onSignout}
-        onReload={handleReload}
+        onRefresh={handleRefresh}
       />
       <div className="dashboard-main">
-        {showForm ? (
-          <NewRequestForm
-            onCancel={() => setShowForm(false)}
-            onSubmit={handleSubmitNewRequest}
-          />
-        ) : (
-          <section className="requests">
-            <header className="section-header">
-              <History />
-              <h2>Your Vacation Requests</h2>
-            </header>
-            <button onClick={handleNewRequest}>New Request</button>
+        <section className="requests">
+          <header className="section-header">
+            <History />
+            <h2>Your Vacation Requests</h2>
+          </header>
+          <button onClick={handleNewRequest}>New Request</button>
 
-            {requests.length === 0 ? (
-              <p>No requests submitted yet.</p>
-            ) : (
-              <RequestsTable
-                requests={requests}
-                onDeleteRequest={handleDeleteRequest}
-                mode="employee"
-              />
-            )}
-          </section>
-        )}
+          {requests.length === 0 ? (
+            <p>No requests submitted yet.</p>
+          ) : (
+            <RequestsTable
+              requests={requests}
+              onDeleteRequest={handleDeleteRequest}
+              mode="employee"
+            />
+          )}
+        </section>
       </div>
+
+      <Modal isOpen={showForm}>
+        <NewRequestForm
+          onCancel={() => setShowForm(false)}
+          onSubmit={handleSubmitNewRequest}
+        />
+      </Modal>
     </div>
   );
 }

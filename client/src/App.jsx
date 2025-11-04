@@ -20,9 +20,9 @@ function App() {
   }
 
   return user.role === "manager" ? (
-    <ManagerDashboard user={user} onSignout={handleSignOut} />
+    <ManagerDashboard connectedUser={user} onSignout={handleSignOut} />
   ) : (
-    <EmployeeDashboard user={user} onSignout={handleSignOut} />
+    <EmployeeDashboard connectedUser={user} onSignout={handleSignOut} />
   );
 }
 

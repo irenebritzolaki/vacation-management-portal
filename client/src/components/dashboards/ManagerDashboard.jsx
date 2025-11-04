@@ -20,7 +20,7 @@ import {
   createRequest,
 } from "../../api";
 
-function ManagerDashboard({ user, onSignout }) {
+function ManagerDashboard({ connectedUser, onSignout }) {
   const [users, setUsers] = useState([]);
   const [showUserForm, setShowUserForm] = useState(false);
   const [showRequestForm, setShowRequestForm] = useState(false);
@@ -32,7 +32,10 @@ function ManagerDashboard({ user, onSignout }) {
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
 
   const pendingRequests = requests.filter((req) => req.status === "pending");
-  const myRequests = requests.filter((req) => req.userID === user.id);
+  const myRequests = requests.filter((req) => req.userID === connectedUser.id);
+  const [connectedUsername, setConnectedUsername] = useState(
+    connectedUser.username
+  );
 
   const handleCreateUser = (e) => {
     e.stopPropagation();
@@ -56,6 +59,12 @@ function ManagerDashboard({ user, onSignout }) {
       const updatedUserList = users.map((u) =>
         u.id === updatedUser.id ? updatedUser : u
       );
+
+      if (connectedUser.id === updatedUser.id) {
+        setConnectedUsername(updatedUser.username);
+        if (updatedUser.role !== "manager") onSignout();
+      }
+
       setUsers(updatedUserList);
       setEditingUser(null);
       setShowUserForm(false);
@@ -83,6 +92,10 @@ function ManagerDashboard({ user, onSignout }) {
 
       const updatedRequests = requests.filter((req) => req.userID !== userID);
       setRequests(updatedRequests);
+
+      if (connectedUser.id === userID) {
+        onSignout();
+      }
       closeDeleteUserModal();
     });
   };
@@ -115,7 +128,7 @@ function ManagerDashboard({ user, onSignout }) {
     const newRequest = {
       dateSubmitted: today,
       status: "pending",
-      userID: user.id,
+      userID: connectedUser.id,
       ...newRequestData,
     };
 
@@ -166,7 +179,7 @@ function ManagerDashboard({ user, onSignout }) {
   return (
     <div className="dashboard">
       <Header
-        userName={user.username}
+        username={connectedUsername}
         onSignOut={onSignout}
         onRefresh={handleRefresh}
       />

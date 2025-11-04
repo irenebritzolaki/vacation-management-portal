@@ -6,7 +6,7 @@ import Modal from "../common/Modal";
 import ConfirmationModal from "../common/ConfirmationModal";
 import { getRequestsByUserID, createRequest, deleteRequest } from "../../api";
 
-function EmployeeDashboard({ user, onSignout }) {
+function EmployeeDashboard({ connectedUser, onSignout }) {
   const [requests, setRequests] = useState([]);
   const [showRequestForm, setShowRequestForm] = useState(false);
   const [deletingRequestID, setDeletingRequestID] = useState(null);
@@ -22,7 +22,7 @@ function EmployeeDashboard({ user, onSignout }) {
     const newRequest = {
       dateSubmitted: today,
       status: "pending",
-      userID: user.id,
+      userID: connectedUser.id,
       ...newRequestData,
     };
 
@@ -53,7 +53,7 @@ function EmployeeDashboard({ user, onSignout }) {
   };
 
   const loadRequests = async () => {
-    getRequestsByUserID(user.id).then((result) => setRequests(result));
+    getRequestsByUserID(connectedUser.id).then((result) => setRequests(result));
   };
 
   const handleRefresh = () => {
@@ -67,7 +67,7 @@ function EmployeeDashboard({ user, onSignout }) {
   return (
     <div className="dashboard">
       <Header
-        userName={user.username}
+        username={connectedUser.username}
         onSignOut={onSignout}
         onRefresh={handleRefresh}
       />

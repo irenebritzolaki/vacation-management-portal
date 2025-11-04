@@ -1,10 +1,10 @@
 import { LogOut, RotateCw } from "lucide-react";
 import "./Header.css";
 
-function Header({ userName, onSignOut, onRefresh }) {
+function Header({ username, onSignOut, onRefresh }) {
   return (
     <header className="dashboard-header">
-      <h1>Hello, {userName}</h1>
+      <h1>Hello, {username}</h1>
       <button className="dashboard-btn refresh-btn" onClick={onRefresh}>
         <RotateCw size={15} />
         Refresh

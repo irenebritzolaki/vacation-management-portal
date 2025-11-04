@@ -1,100 +1,144 @@
 {
   "users": [
     {
-      "id": "aaa",
-      "employeeID": 1002457,
-      "username": "jdoe",
-      "email": "jdoe@company.com",
-      "password": "password123",
-      "role": "employee"
-    },
-    {
-      "id": "bbb",
-      "employeeID": 1002981,
-      "username": "asmith",
-      "email": "asmith@company.com",
-      "password": "securepass",
-      "role": "employee"
-    },
-    {
-      "id": "ccc",
-      "employeeID": 1003104,
-      "username": "mnguyen",
-      "email": "mnguyen@company.com",
-      "password": "mypassword",
-      "role": "employee"
-    },
-    {
-      "id": "ddd",
-      "employeeID": 1015104,
+      "id": "u001",
+      "employeeID": 1001001,
       "username": "employee1",
       "email": "employee1@company.com",
       "password": "qwerty",
       "role": "employee"
     },
     {
-      "id": "fff",
-      "employeeID": 1004127,
+      "id": "u002",
+      "employeeID": 1001002,
+      "username": "jdoe",
+      "email": "jdoe@company.com",
+      "password": "Abc123!@#",
+      "role": "employee"
+    },
+    {
+      "id": "u003",
+      "employeeID": 1001003,
+      "username": "asmith",
+      "email": "asmith@company.com",
+      "password": "Passw0rd$",
+      "role": "employee"
+    },
+    {
+      "id": "u004",
+      "employeeID": 1001004,
+      "username": "mnguyen",
+      "email": "mnguyen@company.com",
+      "password": "Strong1!x",
+      "role": "employee"
+    },
+    {
+      "id": "m001",
+      "employeeID": 1002001,
       "username": "manager1",
       "email": "manager1@company.com",
       "password": "123456",
+      "role": "manager"
+    },
+    {
+      "id": "m002",
+      "employeeID": 1002002,
+      "username": "slee",
+      "email": "slee@company.com",
+      "password": "M@nager123",
       "role": "manager"
     }
   ],
   "requests": [
     {
-      "id": "a1ww",
-      "dateSubmitted": "2025-10-15",
-      "startDate": "2025-11-20",
-      "endDate": "2025-11-25",
-      "reason": "Family vacation.",
-      "status": "approved",
-      "userID": "aaa"
-    },
-    {
-      "id": "dads",
-      "dateSubmitted": "2025-09-30",
-      "startDate": "2025-12-10",
-      "endDate": "2025-12-20",
-      "reason": "Winter holidays.",
-      "status": "pending",
-      "userID": "bbb"
-    },
-    {
-      "id": "slss",
-      "dateSubmitted": "2025-08-12",
-      "startDate": "2025-09-01",
-      "endDate": "2025-09-05",
-      "reason": "Medical leave.",
-      "status": "approved",
-      "userID": "ccc"
-    },
-    {
-      "id": "1f1f",
+      "id": "r001",
       "dateSubmitted": "2025-10-20",
-      "startDate": "2025-12-24",
-      "endDate": "2026-01-02",
-      "reason": "Family trip.",
-      "status": "pending",
-      "userID": "aaa"
-    },
-    {
-      "id": "7872",
-      "dateSubmitted": "2025-11-03",
-      "startDate": "2025-11-17",
-      "endDate": "2025-11-19",
-      "reason": "new req",
+      "startDate": "2025-11-15",
+      "endDate": "2025-11-18",
+      "reason": "Family vacation",
       "status": "approved",
-      "userID": "ddd"
+      "userID": "u001"
     },
     {
-      "id": "cb4f",
-      "dateSubmitted": "2025-11-03",
-      "startDate": "2025-11-19",
+      "id": "r002",
+      "dateSubmitted": "2025-11-01",
+      "startDate": "2025-11-20",
       "endDate": "2025-11-22",
-      "reason": "newest",
+      "reason": "Medical leave",
+      "status": "pending",
+      "userID": "u002"
+    },
+    {
+      "id": "r003",
+      "dateSubmitted": "2025-11-03",
+      "startDate": "2025-12-01",
+      "endDate": "2025-12-03",
+      "reason": "Training program",
+      "status": "pending",
+      "userID": "u003"
+    },
+    {
+      "id": "r004",
+      "dateSubmitted": "2025-11-05",
+      "startDate": "2025-11-25",
+      "endDate": "2025-11-27",
+      "reason": "Personal matters",
       "status": "rejected",
-      "userID": "ddd"
+      "userID": "u004"
+    },
+    {
+      "id": "r005",
+      "dateSubmitted": "2025-11-06",
+      "startDate": "2025-12-05",
+      "endDate": "2025-12-08",
+      "reason": "Project conference",
+      "status": "approved",
+      "userID": "m001"
+    },
+    {
+      "id": "r006",
+      "dateSubmitted": "2025-11-08",
+      "startDate": "2025-12-10",
+      "endDate": "2025-12-15",
+      "reason": "Team event",
+      "status": "pending",
+      "userID": "m002"
+    },
+    {
+      "id": "r007",
+      "dateSubmitted": "2025-11-09",
+      "startDate": "2025-11-30",
+      "endDate": "2025-12-02",
+      "reason": "Family trip",
+      "status": "approved",
+      "userID": "u002"
+    },
+    {
+      "id": "r008",
+      "dateSubmitted": "2025-11-10",
+      "startDate": "2025-12-01",
+      "endDate": "2025-12-05",
+      "reason": "Conference attendance",
+      "status": "rejected",
+      "userID": "u003"
+    },
+    {
+      "id": "r009",
+      "dateSubmitted": "2025-11-11",
+      "startDate": "2025-12-20",
+      "endDate": "2025-12-22",
+      "reason": "Family event",
+      "status": "approved",
+      "userID": "u004"
+    },
+    {
+      "id": "r010",
+      "dateSubmitted": "2025-10-31",
+      "startDate": "2025-10-31",
+      "endDate": "2025-10-31",
+      "reason": "Sick day",
+      "status": "rejected",
+      "userID": "u001"
     }
   ]
 }

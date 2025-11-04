@@ -1,16 +1,90 @@
-# React + Vite
+# Vacation Management Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple vacation management portal built with **React + Vite** on the frontend and **json-server** as a mock backend. This project demonstrates a basic employee and manager workflow for submitting, approving, and managing vacation requests.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 Quick Links
 
-## React Compiler
+- [Installation](#-installation)
+- [Features](#-features)
+- [Password Privacy & Security Notes](#-password-privacy--security-notes)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ⚙️ Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Client
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+This starts the frontend on http://localhost:5173 (default Vite port).
+
+### Server (Mock Backend)
+
+Install json-server globally if you don’t have it:
+
+`npm install -g json-server`
+
+Start the mock server:
+
+```
+cd server
+json-server --watch db.json --port 3000
+```
+
+Anytime you need to reset the database, run
+
+```
+./reset-db.sh
+```
+
+---
+
+## 🚀 Features
+
+### Employee
+
+- Sign in to the portal.
+
+- View a table of submitted vacation requests with status (pending, approved, rejected).
+
+- Create new vacation requests with start/end dates and reason.
+
+- Delete pending requests.
+
+### Manager (inherits Employee features)
+
+All of the above but also:
+
+- Create a new user (role, employee ID, username, email, password).
+
+- View, update, and delete users.
+
+- View all vacation requests from all users.
+
+- Approve or reject pending vacation requests in a dedicated section.
+
+---
+
+## 🔒 Password Privacy & Security Notes
+
+Passwords in this demo are stored in plaintext due to using json-server and are blurred in the manager dashboard, revealing on hover to protect against casual onlookers.
+
+The blur/reveal is purely visual and does not provide real security. In a real system:
+
+- Passwords would be hashed.
+
+- Plaintext would only be sent from a secure server to authenticated managers.
+
+- Server-side protections like HTTPS and access checks would apply.
+
+Also, all inputs are sanitized on the server-side to prevent malicious code injection.
+
+```
+
+```

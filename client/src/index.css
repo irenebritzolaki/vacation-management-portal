@@ -1,16 +1,21 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  font-family: Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  /* color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424; */
+  --color-bg: #f7f7fa;
+  --color-surface: #ffffff;
+  --color-border: #c4c8d0;
+  --color-muted: #64748b;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-accent: #292b53;
+  --color-accent-hover: #3e4388;
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+
+  --color-dark-grey: #333333;
+  --color-mid-grey: #505050;
 }
 
 * {
@@ -19,27 +24,98 @@
   padding: 0;
 }
 
+body {
+  background-color: var(--color-bg);
+}
+
 h1 {
   font-size: 3em;
   line-height: 1.1;
 }
 
+/* Basic Buttons */
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
   padding: 0.6em 1em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  /* background-color: #1a1a1a; */
+  background-color: var(--color-bg);
   cursor: pointer;
-  transition: border-color 0.25s;
-  /* color: white; */
+  outline: none;
+  border: none;
+  transition: background 0.2s;
+  font-size: 1rem;
 }
+
 button:hover {
-  border-color: white;
+  background-color: #e7eaef;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+/* Primary (Accent) Button */
+button.primary {
+  background: var(--color-accent);
+  color: white;
+}
+button.primary:hover {
+  background: var(--color-accent-hover);
+}
+
+/* Secondary Button (Low contrast, e.g. reload) */
+button.secondary {
+  background-color: var(--color-bg);
+  background: var(--color-surface);
+  color: black;
+}
+button.secondary:hover {
+  background: #f3f4f6;
+}
+
+/* Danger Button */
+button.danger {
+  background: var(--color-danger);
+  color: white;
+}
+button.danger:hover {
+  background: #dc2626;
+}
+
+/* ------ general form styles ------ */
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1.3rem;
+  font-size: 1rem;
+}
+
+form button {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+form button[type="submit"] {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+form button[type="submit"]:hover {
+  background-color: var(--color-accent-hover);
+  color: white;
+  filter: none;
+}
+
+form input {
+  padding: 1rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  height: 2.5rem;
+  /* box-sizing: border-box; */
+  outline: none;
+}
+
+form input:focus {
+  border-color: var(--color-accent-hover);
+  box-shadow: 0 0 5px rgba(79, 70, 229, 0.3);
 }

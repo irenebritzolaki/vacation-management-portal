@@ -1,0 +1,66 @@
+/* ---------- Table Styles ---------- */
+
+table {
+  width: 85%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  color: #222;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background: #edf2f7;
+  font-weight: 600;
+}
+
+tr:hover {
+  background: var(--color-bg);
+}
+
+tr:hover button {
+  background: var(--color-surface);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.actions-column {
+  width: 120px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+table button {
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  width: 4rem;
+  margin: 0 5px;
+}
+
+table button:hover {
+  filter: brightness(0.9);
+}
+
+table .password {
+  filter: blur(4px) drop-shadow(2px 0px 5px rgb(114, 114, 114));
+  transition: filter 0.1s ease-out;
+}
+
+table .password:hover {
+  filter: none;
+}
+
+table .username {
+  font-weight: 600;
+}

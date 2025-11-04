@@ -24,7 +24,7 @@ function UsersSection({ users, onCreateUser, onEditUser, onDeleteUser }) {
         </div>
 
         <div className="header-right">
-          <button className="create-user-btn" onClick={onCreateUser}>
+          <button className="create-user-btn primary" onClick={onCreateUser}>
             Create user
           </button>
         </div>

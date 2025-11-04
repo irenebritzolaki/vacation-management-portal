@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./Form.css";
 
 function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
   const [formData, setFormData] = useState(

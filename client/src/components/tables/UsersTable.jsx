@@ -7,7 +7,7 @@ function UserRow({ user, onEditUser, onDeleteUser }) {
     <tr>
       <td>{capitalizeFirstLetter(user.role)}</td>
       <td>{user.employeeID}</td>
-      <td>{user.username}</td>
+      <td className="username">{user.username}</td>
       <td>{user.email}</td>
       <td className="password">{user.password}</td>
       <td className="actions-column">

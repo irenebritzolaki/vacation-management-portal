@@ -1,5 +1,5 @@
 import { API_URL } from "../../api";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./SignInPage.css";
 
 function SignIn({ onSignIn }) {
@@ -47,7 +47,9 @@ function SignIn({ onSignIn }) {
             required
           />
           <span className="error-message">{errorMessage}</span>
-          <button type="submit">Sign In</button>
+          <button type="submit" className="primary">
+            Sign In
+          </button>
         </form>
       </div>
     </>

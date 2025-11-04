@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./Dashboard.css";
 import Header from "../common/Header";
 import RequestForm from "../forms/RequestForm";
 import RequestsSection from "../sections/RequestsSection";

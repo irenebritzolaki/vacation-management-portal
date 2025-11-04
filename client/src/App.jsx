@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./App.css";
 import SignInPage from "./components/pages/SignInPage";
 import EmployeeDashboard from "./components/dashboards/EmployeeDashboard";
 import ManagerDashboard from "./components/dashboards/ManagerDashboard";

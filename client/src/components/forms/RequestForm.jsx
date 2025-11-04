@@ -61,15 +61,6 @@ function RequestForm({ onSubmit, onCancel }) {
           value={formData.reason}
           onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
           required
-          style={{
-            width: "100%",
-            minHeight: "80px",
-            borderRadius: "8px",
-            padding: "10px",
-            border: "1px solid #ccc",
-            fontSize: "1rem",
-            resize: "none",
-          }}
         />
       </div>
 

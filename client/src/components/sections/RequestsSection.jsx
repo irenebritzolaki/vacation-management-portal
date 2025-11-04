@@ -40,7 +40,7 @@ function RequestsSection({
 
         {mode === "personal" && (
           <div className="header-right">
-            <button className="new-request-btn" onClick={onNewRequest}>
+            <button className="new-request-btn primary" onClick={onNewRequest}>
               New Request
             </button>
           </div>

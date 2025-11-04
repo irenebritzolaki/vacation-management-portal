@@ -1,4 +1,5 @@
 import { formatDate, countDays } from "../../helpers";
+import "./Table.css";
 
 function RequestRow({ request, users, onDeleteRequest, mode }) {
   const getUserDetails = (userID) => {
@@ -8,7 +9,9 @@ function RequestRow({ request, users, onDeleteRequest, mode }) {
   return (
     <tr>
       <td>{formatDate(request.dateSubmitted)}</td>
-      <td>{mode === "all" && getUserDetails(request.userID).username}</td>
+      <td className="username">
+        {mode === "all" && getUserDetails(request.userID).username}
+      </td>
       <td>
         {formatDate(request.startDate)} &rArr; {formatDate(request.endDate)}
       </td>

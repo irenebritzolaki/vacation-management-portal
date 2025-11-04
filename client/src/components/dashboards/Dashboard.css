@@ -1,0 +1,154 @@
+/* ---------- Dashboard layout ---------- */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-main {
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  gap: 0.8rem;
+  height: calc(100vh - 80px); /* full height minus header */
+  padding: 1.5rem;
+  overflow: hidden; /* only left panel scrolls */
+}
+
+/* -------- Scrollables -------- */
+.left-panel,
+.pending-list {
+  overflow-y: auto;
+
+  /* scrollbar style */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+  scrollbar-gutter: stable both-edges;
+  padding-right: 8px;
+  box-sizing: content-box;
+}
+
+.left-panel::-webkit-scrollbar,
+.pending-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.left-panel::-webkit-scrollbar-thumb,
+.pending-list::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.left-panel:hover::-webkit-scrollbar-thumb,
+.pending-list:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.25);
+}
+
+.left-panel::-webkit-scrollbar-track,
+.pending-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- Panels ---------- */
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.right-panel {
+  position: sticky;
+  top: 1.5rem; /* distance from top of viewport/header */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem 1rem;
+  max-height: calc(100vh - 120px); /* keep fixed height */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.06);
+  z-index: 1;
+  overflow: hidden; /* scroll only pending list inside */
+}
+
+/* ---------- Pending List (scrollable) ---------- */
+.pending-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  padding: 1rem 0;
+  /* padding-right: 8px; */
+}
+
+/* Section headers match table width */
+.section-content .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  width: 85%; /* match table width */
+  cursor: pointer;
+}
+
+/* ---------- Header Left / Chevron ---------- */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--color-dark-grey);
+}
+
+.section-content .section-header h2,
+.header-left h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+}
+
+.users.open .chevron {
+  transform: rotate(180deg);
+}
+
+.chevron.rotated {
+  transform: rotate(90deg);
+}
+
+/* ---------- Buttons ---------- */
+.create-user-btn,
+.new-request-btn,
+.section-header .create-user-btn {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ---------- Collapsible Sections ---------- */
+.collapsible {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.collapsible.closed {
+  max-height: 0;
+  opacity: 0;
+}
+
+.collapsible.open {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+/* ---------- misc ---------- */
+.dashboard .empty-text {
+  padding-top: 1rem;
+  width: 85%;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--color-dark-grey);
+  text-align: center;
+}

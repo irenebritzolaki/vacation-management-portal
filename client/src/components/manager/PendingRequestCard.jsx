@@ -17,34 +17,38 @@ function PendingRequestCard({
     return daysDifference + 1; // count both start and end dates
   };
 
-  const getUserDetails = (userID) => {
-    return users.find((u) => u.id === userID);
-  };
+  const getUserDetails = (userID) => users.find((u) => u.id === userID);
 
   return (
     <div className="pending-request-card">
-      <div className="request-row">
-        <span className="label">Submitted:</span>
-        <span>{formatDate(request.dateSubmitted)}</span>
-      </div>
-      <div className="request-row">
-        <span className="label">Employee:</span>
-        <span>{getUserDetails(request.userID).username}</span>
-      </div>
-      <div className="request-row">
-        <span className="label">Dates:</span>
-        <span>
-          {formatDate(request.startDate)} &rArr; {formatDate(request.endDate)} (
-          {countDays(request.startDate, request.endDate)} days)
+      <div className="request-header">
+        <h4>{getUserDetails(request.userID).username}</h4>
+        <span className="submitted-date">
+          Submitted: {formatDate(request.dateSubmitted)}
         </span>
       </div>
-      <div className="request-row">
-        <span className="label">Reason:</span>
-        <span>{request.reason}</span>
+
+      <div className="request-details">
+        <div>
+          <span className="label">Dates:</span>
+          <span>
+            {formatDate(request.startDate)} → {formatDate(request.endDate)} (
+            {countDays(request.startDate, request.endDate)} days)
+          </span>
+        </div>
+        <div>
+          <span className="label">Reason:</span>
+          <span className="reason-text">{request.reason}</span>
+        </div>
       </div>
+
       <div className="actions">
-        <button onClick={onApproveRequest}>Approve</button>
-        <button onClick={onRejectRequest}>Reject</button>
+        <button className="approve" onClick={onApproveRequest}>
+          Approve
+        </button>
+        <button className="reject" onClick={onRejectRequest}>
+          Reject
+        </button>
       </div>
     </div>
   );

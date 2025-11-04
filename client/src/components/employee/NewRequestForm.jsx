@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../common/Form.css"; // reuse the same CSS for consistent style
 
 function NewRequestForm({ onSubmit, onCancel }) {
   const today = new Date().toISOString().split("T")[0];
@@ -17,7 +18,6 @@ function NewRequestForm({ onSubmit, onCancel }) {
 
   const handleStartDateChange = (e) => {
     const newStart = e.target.value;
-
     setFormData((prev) => {
       const updated = { ...prev, startDate: newStart };
       if (prev.endDate && prev.endDate < newStart) {
@@ -28,20 +28,22 @@ function NewRequestForm({ onSubmit, onCancel }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="dashboard-form request-form" onSubmit={handleSubmit}>
       <h3>New Vacation Request</h3>
-      <div>
-        <label>Start Date: </label>
+
+      <div className="form-group">
+        <label>Start Date:</label>
         <input
           type="date"
           value={formData.startDate}
-          onChange={(e) => handleStartDateChange(e)}
+          onChange={handleStartDateChange}
           min={today}
           required
         />
       </div>
-      <div>
-        <label>End Date: </label>
+
+      <div className="form-group">
+        <label>End Date:</label>
         <input
           type="date"
           value={formData.endDate}
@@ -52,19 +54,30 @@ function NewRequestForm({ onSubmit, onCancel }) {
           required
         />
       </div>
-      <div>
-        <label>Reason: </label>
+
+      <div className="form-group">
+        <label>Reason:</label>
         <textarea
           value={formData.reason}
           onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
           required
+          style={{
+            width: "100%",
+            minHeight: "80px",
+            borderRadius: "8px",
+            padding: "10px",
+            border: "1px solid #ccc",
+            fontSize: "1rem",
+            resize: "none",
+          }}
         />
       </div>
-      <div>
-        <button type="submit">Submit</button>
+
+      <div className="button-group">
         <button type="button" onClick={onCancel}>
           Cancel
         </button>
+        <button type="submit">Submit</button>
       </div>
     </form>
   );

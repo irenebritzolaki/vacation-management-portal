@@ -1,0 +1,133 @@
+.dashboard-form {
+  width: 400px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  font-size: 1rem;
+}
+
+.dashboard-form h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.dashboard-form div.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dashboard-form label {
+  font-weight: 600;
+  color: #555;
+}
+
+.dashboard-form input[type="text"],
+.dashboard-form input[type="email"],
+.dashboard-form input[type="password"] {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.dashboard-form input[type="text"]:focus,
+.dashboard-form input[type="email"]:focus,
+.dashboard-form input[type="password"]:focus {
+  border-color: #130f65;
+  outline: none;
+  box-shadow: 0 0 5px rgba(79, 70, 229, 0.3);
+}
+
+.dashboard-form .radio-group {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.dashboard-form .radio-group label {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+}
+
+.dashboard-form .button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 10px;
+}
+
+.dashboard-form button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dashboard-form button[type="submit"] {
+  background-color: #130f65;
+  color: white;
+}
+
+.dashboard-form button[type="submit"]:hover {
+  background-color: rgb(39, 32, 173);
+}
+
+.dashboard-form button[type="button"] {
+  background-color: #f3f4f6;
+  color: #333;
+}
+
+.dashboard-form button[type="button"]:hover {
+  background-color: #e5e7eb;
+}
+
+.dashboard-form input,
+.dashboard-form select,
+.dashboard-form textarea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  height: 40px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.dashboard-form textarea {
+  min-height: 80px;
+  resize: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: auto; /* allow height to respect min-height */
+}
+
+.dashboard-form input:focus,
+.dashboard-form select:focus,
+.dashboard-form textarea:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 5px rgba(79, 70, 229, 0.3);
+}
+
+.dashboard-form input[type="date"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.dashboard-form .button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 10px;
+}

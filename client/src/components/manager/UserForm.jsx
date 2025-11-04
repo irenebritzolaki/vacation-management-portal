@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../common/Form.css";
 
 function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
   const [formData, setFormData] = useState(
@@ -17,32 +18,41 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>{mode === "create" ? "Create New User" : "Update User"}</h3>
-      <div>
-        <label>
-          <input
-            type="radio"
-            name="role"
-            value="manager"
-            checked={formData.role === "manager"}
-            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-          />{" "}
-          Manager
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="role"
-            value="employee"
-            checked={formData.role === "employee"}
-            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-          />{" "}
-          Employee
-        </label>
+    <form className="dashboard-form user-form" onSubmit={handleSubmit}>
+      <h3>{mode === "create" ? "Create New User" : "Edit User"}</h3>
+
+      <div className="form-group">
+        <label>Role:</label>
+        <div className="radio-group">
+          <label>
+            <input
+              type="radio"
+              name="role"
+              value="manager"
+              checked={formData.role === "manager"}
+              onChange={(e) =>
+                setFormData({ ...formData, role: e.target.value })
+              }
+            />
+            Manager
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="role"
+              value="employee"
+              checked={formData.role === "employee"}
+              onChange={(e) =>
+                setFormData({ ...formData, role: e.target.value })
+              }
+            />
+            Employee
+          </label>
+        </div>
       </div>
-      <div>
-        <label>Employee ID: </label>
+
+      <div className="form-group">
+        <label>Employee ID:</label>
         <input
           type="text"
           value={formData.employeeID}
@@ -53,8 +63,9 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
           required
         />
       </div>
-      <div>
-        <label>Username: </label>
+
+      <div className="form-group">
+        <label>Username:</label>
         <input
           type="text"
           value={formData.username}
@@ -64,8 +75,9 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
           required
         />
       </div>
-      <div>
-        <label>Email: </label>
+
+      <div className="form-group">
+        <label>Email:</label>
         <input
           type="email"
           value={formData.email}
@@ -73,8 +85,9 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
           required
         />
       </div>
-      <div>
-        <label>Password: </label>
+
+      <div className="form-group">
+        <label>Password:</label>
         <input
           type="text"
           value={formData.password}
@@ -84,11 +97,12 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
           required
         />
       </div>
-      <div>
-        <button type="submit">{mode === "create" ? "Submit" : "Update"}</button>
+
+      <div className="button-group">
         <button type="button" onClick={onCancel}>
           Cancel
         </button>
+        <button type="submit">{mode === "create" ? "Submit" : "Update"}</button>
       </div>
     </form>
   );

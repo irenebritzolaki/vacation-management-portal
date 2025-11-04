@@ -20,3 +20,23 @@
   z-index: 1001;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.confirmation-message {
+  font-size: 1.1rem;
+}
+
+.confirmation-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.confirmation-btn:hover {
+  background-color: #dc2626;
+}

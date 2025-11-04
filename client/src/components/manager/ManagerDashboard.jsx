@@ -4,6 +4,7 @@ import Header from "../common/Header";
 import UserForm from "./UserForm";
 import NewRequestForm from "../employee/NewRequestForm";
 import Modal from "../common/Modal";
+import ConfirmationModal from "../common/ConfirmationModal";
 import {
   changeRequestsStatus,
   createUser,
@@ -25,6 +26,10 @@ function ManagerDashboard({ user, onSignout }) {
   const [showRequestForm, setShowRequestForm] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [requests, setRequests] = useState([]);
+  const [deletingRequestID, setDeletingRequestID] = useState(null);
+  const [showDeleteRequestModal, setShowDeleteRequestModal] = useState(false);
+  const [deletingUser, setDeletingUser] = useState(null);
+  const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
 
   const pendingRequests = requests.filter((req) => req.status === "pending");
   const myRequests = requests.filter((req) => req.userID === user.id);
@@ -57,7 +62,18 @@ function ManagerDashboard({ user, onSignout }) {
     });
   };
 
-  const handleDeleteUser = async (userID) => {
+  const openDeleteUserModal = (user) => {
+    setDeletingUser(user);
+    setShowDeleteUserModal(true);
+  };
+
+  const closeDeleteUserModal = () => {
+    setDeletingUser(null);
+    setShowDeleteUserModal(false);
+  };
+
+  const handleDeleteUser = async () => {
+    const userID = deletingUser.id;
     const userRequests = await getRequestsByUserID(userID);
     await Promise.all(userRequests.map((req) => deleteRequest(req.id)));
 
@@ -67,6 +83,7 @@ function ManagerDashboard({ user, onSignout }) {
 
       const updatedRequests = requests.filter((req) => req.userID !== userID);
       setRequests(updatedRequests);
+      closeDeleteUserModal();
     });
   };
 
@@ -108,10 +125,23 @@ function ManagerDashboard({ user, onSignout }) {
     });
   };
 
-  const handleDeleteRequest = async (requestID) => {
-    deleteRequest(requestID).then(() => {
-      const updatedRequests = requests.filter((req) => req.id !== requestID);
+  const openDeleteRequestModal = (requestID) => {
+    setDeletingRequestID(requestID);
+    setShowDeleteRequestModal(true);
+  };
+
+  const closeDeleteRequestModal = () => {
+    setDeletingRequestID(null);
+    setShowDeleteRequestModal(false);
+  };
+
+  const handleDeleteRequest = async () => {
+    deleteRequest(deletingRequestID).then(() => {
+      const updatedRequests = requests.filter(
+        (req) => req.id !== deletingRequestID
+      );
       setRequests(updatedRequests);
+      closeDeleteRequestModal();
     });
   };
 
@@ -147,13 +177,13 @@ function ManagerDashboard({ user, onSignout }) {
             users={users}
             onCreateUser={handleCreateUser}
             onEditUser={handleEditUser}
-            onDeleteUser={handleDeleteUser}
+            onDeleteUser={openDeleteUserModal}
           />
 
           <RequestsSection
             requests={myRequests}
             onNewRequest={handleNewRequest}
-            onDeleteRequest={handleDeleteRequest}
+            onDeleteRequest={openDeleteRequestModal}
             mode="personal"
           />
 
@@ -186,6 +216,22 @@ function ManagerDashboard({ user, onSignout }) {
           onSubmit={handleSubmitNewRequest}
         />
       </Modal>
+
+      <ConfirmationModal
+        isOpen={showDeleteRequestModal}
+        message="Are you sure you want to delete this request?"
+        onConfirm={handleDeleteRequest}
+        onCancel={closeDeleteRequestModal}
+      />
+
+      <ConfirmationModal
+        isOpen={showDeleteUserModal}
+        message={`Are you sure you want to delete user ${
+          deletingUser && deletingUser.username
+        }?`}
+        onConfirm={handleDeleteUser}
+        onCancel={closeDeleteUserModal}
+      />
     </div>
   );
 }

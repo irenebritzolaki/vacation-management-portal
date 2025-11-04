@@ -3,13 +3,17 @@ import NewRequestForm from "./NewRequestForm";
 import RequestsSection from "../manager/RequestsSection";
 import Header from "../common/Header";
 import Modal from "../common/Modal";
+import ConfirmationModal from "../common/ConfirmationModal";
 import { getRequestsByUserID, createRequest, deleteRequest } from "../../api";
 
 function EmployeeDashboard({ user, onSignout }) {
   const [requests, setRequests] = useState([]);
   const [showRequestForm, setShowRequestForm] = useState(false);
+  const [deletingRequestID, setDeletingRequestID] = useState(null);
+  const [showDeleteRequestModal, setShowDeleteRequestModal] = useState(false);
 
-  const handleNewRequest = () => {
+  const handleNewRequest = (e) => {
+    e.stopPropagation();
     setShowRequestForm(true);
   };
 
@@ -28,10 +32,23 @@ function EmployeeDashboard({ user, onSignout }) {
     });
   };
 
-  const handleDeleteRequest = async (requestID) => {
-    deleteRequest(requestID).then(() => {
-      const updatedRequests = requests.filter((req) => req.id !== requestID);
+  const openDeleteRequestModal = (requestID) => {
+    setDeletingRequestID(requestID);
+    setShowDeleteRequestModal(true);
+  };
+
+  const closeDeleteRequestModal = () => {
+    setDeletingRequestID(null);
+    setShowDeleteRequestModal(false);
+  };
+
+  const handleDeleteRequest = async () => {
+    deleteRequest(deletingRequestID).then(() => {
+      const updatedRequests = requests.filter(
+        (req) => req.id !== deletingRequestID
+      );
       setRequests(updatedRequests);
+      closeDeleteRequestModal();
     });
   };
 
@@ -58,7 +75,7 @@ function EmployeeDashboard({ user, onSignout }) {
         <RequestsSection
           requests={requests}
           onNewRequest={handleNewRequest}
-          onDeleteRequest={handleDeleteRequest}
+          onDeleteRequest={openDeleteRequestModal}
           mode="personal"
         />
       </div>
@@ -69,6 +86,13 @@ function EmployeeDashboard({ user, onSignout }) {
           onSubmit={handleSubmitNewRequest}
         />
       </Modal>
+
+      <ConfirmationModal
+        isOpen={showDeleteRequestModal}
+        message="Are you sure you want to delete this request?"
+        onConfirm={handleDeleteRequest}
+        onCancel={closeDeleteRequestModal}
+      />
     </div>
   );
 }

@@ -12,7 +12,7 @@ function UserRow({ user, onEditUser, onDeleteUser }) {
       <td className="password">{user.password}</td>
       <td className="actions-column">
         <button onClick={() => onEditUser(user)}>Edit</button>
-        <button onClick={() => onDeleteUser(user.id)}>Delete</button>
+        <button onClick={() => onDeleteUser(user)}>Delete</button>
       </td>
     </tr>
   );

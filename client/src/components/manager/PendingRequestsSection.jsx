@@ -12,7 +12,7 @@ function PendingRequestsSection({
       <header className="section-header small">
         <div className="header-left simple">
           <Loader size={20} />
-          <h3>Pending Requests</h3>
+          <h3>Pending Requests ({requests.length})</h3>
         </div>
       </header>
 

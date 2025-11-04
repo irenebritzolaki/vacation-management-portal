@@ -20,7 +20,7 @@ function UsersSection({ users, onCreateUser, onEditUser, onDeleteUser }) {
           />
 
           <Users size={22} className="users-icon" />
-          <h2>Registered users</h2>
+          <h2>Registered users ({users.length})</h2>
         </div>
 
         <div className="header-right">

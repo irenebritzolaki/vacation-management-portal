@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./App.css";
 import SignInPage from "./components/pages/SignInPage";
-import EmployeeDashboard from "./components/employee/EmployeeDashboard";
-import ManagerDashboard from "./components/manager/ManagerDashboard";
+import EmployeeDashboard from "./components/dashboards/EmployeeDashboard";
+import ManagerDashboard from "./components/dashboards/ManagerDashboard";
 
 function App() {
   const [user, setUser] = useState(false);

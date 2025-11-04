@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import RequestForm from "./RequestForm";
-import RequestsSection from "../manager/RequestsSection";
 import Header from "../common/Header";
+import RequestForm from "../forms/RequestForm";
+import RequestsSection from "../sections/RequestsSection";
 import Modal from "../common/Modal";
 import ConfirmationModal from "../common/ConfirmationModal";
 import { getRequestsByUserID, createRequest, deleteRequest } from "../../api";

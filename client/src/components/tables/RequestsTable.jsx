@@ -1,15 +1,6 @@
+import { formatDate, countDays } from "../../helpers";
+
 function RequestRow({ request, users, onDeleteRequest, mode }) {
-  const formatDate = (date) => {
-    let parts = date.split("-");
-    return `${parts[2]}/${parts[1]}/${parts[0]}`;
-  };
-
-  const countDays = (startDate, endDate) => {
-    const timeDifference = new Date(endDate) - new Date(startDate);
-    const daysDifference = timeDifference / (1000 * 3600 * 24);
-    return daysDifference + 1; // count both start and end dates
-  };
-
   const getUserDetails = (userID) => {
     return users.find((u) => u.id === userID);
   };

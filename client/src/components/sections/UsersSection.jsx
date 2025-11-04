@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Users, ChevronRight } from "lucide-react";
-import UsersTable from "./UsersTable";
+import UsersTable from "../tables/UsersTable";
 
 function UsersSection({ users, onCreateUser, onEditUser, onDeleteUser }) {
   const [isOpen, setIsOpen] = useState(true);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { History, FolderClock, ChevronRight } from "lucide-react";
-import RequestsTable from "../common/RequestsTable";
+import RequestsTable from "../tables/RequestsTable";
 
 function RequestsSection({
   requests,

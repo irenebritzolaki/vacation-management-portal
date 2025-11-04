@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import "./ManagerDashboard.css";
 import Header from "../common/Header";
-import UserForm from "./UserForm";
-import RequestForm from "../employee/RequestForm";
+import UserForm from "../forms/UserForm";
+import RequestForm from "../forms/RequestForm";
 import Modal from "../common/Modal";
 import ConfirmationModal from "../common/ConfirmationModal";
+import UsersSection from "../sections/UsersSection";
+import RequestsSection from "../sections/RequestsSection";
+import PendingRequestsSection from "../sections/PendingRequestsSection";
 import {
   changeRequestsStatus,
   createUser,
@@ -16,9 +19,6 @@ import {
   deleteRequest,
   createRequest,
 } from "../../api";
-import UsersSection from "./UsersSection";
-import RequestsSection from "./RequestsSection";
-import PendingRequestsSection from "./PendingRequestsSection";
 
 function ManagerDashboard({ user, onSignout }) {
   const [users, setUsers] = useState([]);

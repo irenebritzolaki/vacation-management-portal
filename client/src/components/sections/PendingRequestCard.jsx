@@ -1,4 +1,5 @@
 import "./PendingRequestCard.css";
+import { formatDate, countDays } from "../../helpers";
 
 function PendingRequestCard({
   request,
@@ -6,17 +7,6 @@ function PendingRequestCard({
   onApproveRequest,
   onRejectRequest,
 }) {
-  const formatDate = (date) => {
-    let parts = date.split("-");
-    return `${parts[2]}/${parts[1]}/${parts[0]}`;
-  };
-
-  const countDays = (startDate, endDate) => {
-    const timeDifference = new Date(endDate) - new Date(startDate);
-    const daysDifference = timeDifference / (1000 * 3600 * 24);
-    return daysDifference + 1; // count both start and end dates
-  };
-
   const getUserDetails = (userID) => users.find((u) => u.id === userID);
 
   return (

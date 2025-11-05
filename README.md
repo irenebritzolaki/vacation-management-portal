@@ -32,7 +32,7 @@ json-server --watch db.json --port 3000
 Anytime you need to reset the database, run
 
 ```
-./reset-db.sh
+node reset-db.js
 ```
 
 ### Client

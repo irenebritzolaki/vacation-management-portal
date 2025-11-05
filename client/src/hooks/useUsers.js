@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   getAllUsers,
   createUser,
@@ -63,10 +63,6 @@ export function useUsers() {
     setDeletingUser(null);
     setShowDeleteUserModal(false);
   };
-
-  useEffect(() => {
-    loadUsers();
-  }, []);
 
   return {
     users,

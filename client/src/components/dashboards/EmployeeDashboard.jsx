@@ -5,6 +5,7 @@ import RequestsSection from "../sections/RequestsSection";
 import Modal from "../common/Modal";
 import ConfirmationModal from "../common/ConfirmationModal";
 import { useRequests } from "../../hooks/useRequests";
+import { useEffect } from "react";
 
 function EmployeeDashboard({ connectedUser, onSignout }) {
   const requestHook = useRequests(connectedUser.id); // isManager defaults to false
@@ -12,6 +13,10 @@ function EmployeeDashboard({ connectedUser, onSignout }) {
   const handleRefresh = () => {
     requestHook.loadRequests();
   };
+
+  useEffect(() => {
+    requestHook.loadRequests();
+  }, []);
 
   return (
     <div className="dashboard">

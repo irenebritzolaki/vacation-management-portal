@@ -1,5 +1,4 @@
-// src/hooks/useRequests.js
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   getRequestsByUserID,
   getAllRequests,
@@ -69,10 +68,6 @@ export function useRequests(userID, mode = "employee") {
     await changeRequestsStatus(requestID, { status: "rejected" });
     loadRequests();
   };
-
-  useEffect(() => {
-    loadRequests();
-  });
 
   return {
     requests,

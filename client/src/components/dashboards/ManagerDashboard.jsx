@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Dashboard.css";
 import Header from "../common/Header";
 import UsersSection from "../sections/UsersSection";
@@ -47,6 +47,11 @@ export default function ManagerDashboard({ connectedUser, onSignout }) {
     userHook.loadUsers();
     requestHook.loadRequests();
   };
+
+  useEffect(() => {
+    userHook.loadUsers();
+    requestHook.loadRequests();
+  }, []);
 
   return (
     <div className="dashboard">

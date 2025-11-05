@@ -16,16 +16,6 @@ A simple vacation management portal built with **React + Vite** on the frontend 
 
 ## ⚙️ Installation
 
-### Client
-
-```bash
-cd client
-npm install
-npm run dev
-```
-
-This starts the frontend on http://localhost:5173 (default Vite port).
-
 ### Server (Mock Backend)
 
 Install json-server globally if you don’t have it:
@@ -44,6 +34,16 @@ Anytime you need to reset the database, run
 ```
 ./reset-db.sh
 ```
+
+### Client
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+This starts the frontend on http://localhost:5173 (default Vite port).
 
 ---
 

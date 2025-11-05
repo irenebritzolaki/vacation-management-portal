@@ -16,7 +16,7 @@ function RequestRow({ request, users, onDeleteRequest, mode }) {
         {formatDate(request.startDate)} &rArr; {formatDate(request.endDate)}
       </td>
       <td>{countDays(request.startDate, request.endDate)}</td>
-      <td>{request.reason}</td>
+      <td className="reason">{request.reason}</td>
       <td>{request.status}</td>
       <td>
         {mode === "personal" && request.status === "pending" && (

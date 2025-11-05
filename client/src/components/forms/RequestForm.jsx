@@ -58,7 +58,7 @@ function RequestForm({ onSubmit, onCancel }) {
       <div className="form-group">
         <label>Reason:</label>
         <textarea
-          maxLength={80}
+          maxLength={25}
           value={formData.reason}
           placeholder="Just because :)"
           onChange={(e) => setFormData({ ...formData, reason: e.target.value })}

@@ -57,6 +57,10 @@ table .password {
   transition: filter 0.1s ease-out;
 }
 
+table .reason {
+  max-width: 15rem;
+}
+
 table .password:hover {
   filter: none;
 }

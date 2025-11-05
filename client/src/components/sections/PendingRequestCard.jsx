@@ -9,7 +9,6 @@ function PendingRequestCard({
 }) {
   const getUserName = (userID) => {
     const user = users.find((u) => u.id === userID);
-
     return user ? user.username : "Unknown";
   };
 

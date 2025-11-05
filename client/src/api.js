@@ -16,7 +16,8 @@ const handleFetch = async (url, options = {}) => {
 
 // ---------- USERS ----------
 
-export const getAllUsers = () => handleFetch(`${API_URL}/users`);
+export const getAllUsers = () =>
+  handleFetch(`${API_URL}/users?_sort=-role,employeeID`);
 
 export const getUserById = (id) => handleFetch(`${API_URL}/users/${id}`);
 
@@ -37,7 +38,8 @@ export const deleteUser = (id) =>
 
 // ---------- REQUESTS ----------
 
-export const getAllRequests = () => handleFetch(`${API_URL}/requests`);
+export const getAllRequests = () =>
+  handleFetch(`${API_URL}/requests?_sort=-dateSubmitted`);
 
 export const getRequestsByUserID = (userID) =>
   handleFetch(`${API_URL}/requests?userID=${userID}`);

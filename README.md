@@ -7,7 +7,9 @@ A simple vacation management portal built with **React + Vite** on the frontend 
 ## 📌 Quick Links
 
 - [Installation](#-installation)
+- [Connecting to the Portal](#-connecting-to-the-portal)
 - [Features](#-features)
+- [Implementation Notes](#-implementation-notes)
 - [Password Privacy & Security Notes](#-password-privacy--security-notes)
 
 ---
@@ -45,6 +47,19 @@ Anytime you need to reset the database, run
 
 ---
 
+## 🌐 Connecting to the Portal
+
+You can use the following test users to log in quickly:
+
+| Role       | Username  | Password |
+| ---------- | :-------: | :------: |
+| _Manager_  | manager1  |  123456  |
+| _Employee_ | employee1 |  qwerty  |
+
+_These passwords are intentionally simple for demo purposes and do not follow the portal password rules._
+
+---
+
 ## 🚀 Features
 
 ### Employee
@@ -71,6 +86,17 @@ All of the above but also:
 
 ---
 
+## 💡 Implementation Notes
+
+Since this project uses json-server as a mock backend, a few operations are handled on the **client** side:
+
+- **User deletion:** Normally, the server would handle cascading deletes (removing a user and their requests together). Here, it’s done with multiple client requests.
+- **User names in requests:** A real API would return joined user data. Here, the client fetches each user name separately.
+
+These are temporary workarounds to keep the setup simple while maintaining realistic behavior.
+
+---
+
 ## 🔒 Password Privacy & Security Notes
 
 Passwords in this demo are stored in plaintext due to using json-server and are blurred in the manager dashboard, revealing on hover to protect against casual onlookers.
@@ -84,7 +110,3 @@ The blur/reveal is purely visual and does not provide real security. In a real s
 - Server-side protections like HTTPS and access checks would apply.
 
 Also, all inputs are sanitized on the server-side to prevent malicious code injection.
-
-```
-
-```

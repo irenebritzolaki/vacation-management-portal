@@ -10,7 +10,9 @@ A simple vacation management portal built with **React + Vite** on the frontend 
 - [Connecting to the Portal](#-connecting-to-the-portal)
 - [Features](#-features)
 - [Implementation Notes](#-implementation-notes)
+- [Tests](#-tests)
 - [Password Privacy & Security Notes](#-password-privacy--security-notes)
+- [Future Plans](#-future-plans)
 
 ---
 
@@ -92,8 +94,29 @@ Since this project uses json-server as a mock backend, a few operations are hand
 
 - **User deletion:** Normally, the server would handle cascading deletes (removing a user and their requests together). Here, it’s done with multiple client requests.
 - **User names in requests:** A real API would return joined user data. Here, the client fetches each user name separately.
+- **Automtic rejection of old requests:** In a real backend, requests with a start date before today could be automatically marked rejected. With json-server, this logic would need to be handled by the client or a real server.
 
 These are temporary workarounds to keep the setup simple while maintaining realistic behavior.
+
+---
+
+## 🧪 Tests
+
+The project currently includes automated tests for helpers and API functions:
+
+- **Helpers tests:** verify utility functions like date formatting and day counting.
+- **API tests:** cover creating, fetching, updating, approving/rejecting, and deleting users and vacation requests using the seed data.
+
+You can run the tests with:
+
+```
+cd client
+npm test
+```
+
+> ⚠️ Important: Make sure the database is reset (node reset-db.js) and json-server is running at API_URL before running tests, as they rely on the seeded data.
+
+- **Future tests**: **Hooks** and **JSX** tests will be added later to cover frontend components and state management.
 
 ---
 
@@ -110,3 +133,21 @@ The blur/reveal is purely visual and does not provide real security. In a real s
 - Server-side protections like HTTPS and access checks would apply.
 
 Also, all inputs are sanitized on the server-side to prevent malicious code injection.
+
+---
+
+## 🔮 Future Adds
+
+Planned improvements and features:
+
+- More tests, including React hooks and UI components.
+
+- Enhanced table features: sorting, filtering, and username search.
+
+- Session handling to keep users logged in.
+
+- Approve/reject requests with manager info and approval date.
+
+- Automatically mark requests as rejected if start date is before today.
+
+- Count working days instead of total days using a file with non-working days.

@@ -31,6 +31,8 @@ cd server
 json-server --watch db.json --port 3000
 ```
 
+> 💡 You can use any port, but if you change it, update the client .env accordingly.
+
 Anytime you need to reset the database, run
 
 ```
@@ -39,6 +41,8 @@ node reset-db.js
 
 ### Client
 
+Run the client:
+
 ```bash
 cd client
 npm install
@@ -46,6 +50,14 @@ npm run dev
 ```
 
 This starts the frontend on http://localhost:5173 (default Vite port).
+
+> ⚠️ If you are running json-server on a custom port, update the .env file in the client root with your API URL:
+
+```
+VITE_API_URL=http://localhost:YOUR_PORT`
+```
+
+Then restart the client. This ensures the frontend points to the correct backend.
 
 ---
 

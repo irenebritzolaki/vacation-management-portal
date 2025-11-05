@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:3000";
+export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 // Helper for error handling
 const handleFetch = async (url, options = {}) => {

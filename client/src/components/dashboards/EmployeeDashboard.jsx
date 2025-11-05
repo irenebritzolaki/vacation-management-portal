@@ -1,69 +1,17 @@
-import { useState, useEffect } from "react";
 import "./Dashboard.css";
 import Header from "../common/Header";
 import RequestForm from "../forms/RequestForm";
 import RequestsSection from "../sections/RequestsSection";
 import Modal from "../common/Modal";
 import ConfirmationModal from "../common/ConfirmationModal";
-import { getRequestsByUserID, createRequest, deleteRequest } from "../../api";
+import { useRequests } from "../../hooks/useRequests";
 
 function EmployeeDashboard({ connectedUser, onSignout }) {
-  const [requests, setRequests] = useState([]);
-  const [showRequestForm, setShowRequestForm] = useState(false);
-  const [deletingRequestID, setDeletingRequestID] = useState(null);
-  const [showDeleteRequestModal, setShowDeleteRequestModal] = useState(false);
-
-  const handleNewRequest = (e) => {
-    e.stopPropagation();
-    setShowRequestForm(true);
-  };
-
-  const handleSubmitNewRequest = async (newRequestData) => {
-    const today = new Date().toISOString().split("T")[0];
-    const newRequest = {
-      dateSubmitted: today,
-      status: "pending",
-      userID: connectedUser.id,
-      ...newRequestData,
-    };
-
-    createRequest(newRequest).then((result) => {
-      setRequests([...requests, result]);
-      setShowRequestForm(false);
-    });
-  };
-
-  const openDeleteRequestModal = (requestID) => {
-    setDeletingRequestID(requestID);
-    setShowDeleteRequestModal(true);
-  };
-
-  const closeDeleteRequestModal = () => {
-    setDeletingRequestID(null);
-    setShowDeleteRequestModal(false);
-  };
-
-  const handleDeleteRequest = async () => {
-    deleteRequest(deletingRequestID).then(() => {
-      const updatedRequests = requests.filter(
-        (req) => req.id !== deletingRequestID
-      );
-      setRequests(updatedRequests);
-      closeDeleteRequestModal();
-    });
-  };
-
-  const loadRequests = async () => {
-    getRequestsByUserID(connectedUser.id).then((result) => setRequests(result));
-  };
+  const requestHook = useRequests(connectedUser.id); // isManager defaults to false
 
   const handleRefresh = () => {
-    loadRequests();
+    requestHook.loadRequests();
   };
-
-  useEffect(() => {
-    loadRequests();
-  }, []);
 
   return (
     <div className="dashboard">
@@ -74,25 +22,28 @@ function EmployeeDashboard({ connectedUser, onSignout }) {
       />
       <div className="dashboard-main">
         <RequestsSection
-          requests={requests}
-          onNewRequest={handleNewRequest}
-          onDeleteRequest={openDeleteRequestModal}
+          requests={requestHook.requests}
+          onNewRequest={requestHook.handleNewRequest}
+          onDeleteRequest={requestHook.openDeleteRequestModal}
           mode="personal"
         />
       </div>
 
-      <Modal isOpen={showRequestForm}>
+      <Modal
+        isOpen={requestHook.showRequestForm}
+        onClose={() => requestHook.setShowRequestForm(false)}
+      >
         <RequestForm
-          onCancel={() => setShowRequestForm(false)}
-          onSubmit={handleSubmitNewRequest}
+          onCancel={() => requestHook.setShowRequestForm(false)}
+          onSubmit={requestHook.handleSubmitNewRequest}
         />
       </Modal>
 
       <ConfirmationModal
-        isOpen={showDeleteRequestModal}
+        isOpen={requestHook.showDeleteRequestModal}
         message="Are you sure you want to delete this request?"
-        onConfirm={handleDeleteRequest}
-        onCancel={closeDeleteRequestModal}
+        onConfirm={requestHook.handleDeleteRequest}
+        onCancel={requestHook.closeDeleteRequestModal}
       />
     </div>
   );

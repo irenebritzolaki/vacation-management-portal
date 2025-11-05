@@ -2,15 +2,15 @@ import { formatDate, countDays } from "../../helpers";
 import "./Table.css";
 
 function RequestRow({ request, users, onDeleteRequest, mode }) {
-  const getUserDetails = (userID) => {
-    return users.find((u) => u.id === userID);
+  const getUserName = (userID) => {
+    const user = users.find((u) => u.id === userID);
+    return user ? user.username : "Unknown";
   };
-
   return (
     <tr>
       <td>{formatDate(request.dateSubmitted)}</td>
       <td className="username">
-        {mode === "all" && getUserDetails(request.userID).username}
+        {mode === "all" && getUserName(request.userID)}
       </td>
       <td>
         {formatDate(request.startDate)} &rArr; {formatDate(request.endDate)}

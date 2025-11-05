@@ -7,12 +7,16 @@ function PendingRequestCard({
   onApproveRequest,
   onRejectRequest,
 }) {
-  const getUserDetails = (userID) => users.find((u) => u.id === userID);
+  const getUserName = (userID) => {
+    const user = users.find((u) => u.id === userID);
+
+    return user ? user.username : "Unknown";
+  };
 
   return (
     <div className="pending-request-card">
       <div className="request-header">
-        <h4>{getUserDetails(request.userID).username}</h4>
+        <h4>{getUserName(request.userID)}</h4>
         <span className="submitted-date">
           Submitted: {formatDate(request.dateSubmitted)}
         </span>

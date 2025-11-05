@@ -1,180 +1,52 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./Dashboard.css";
 import Header from "../common/Header";
+import UsersSection from "../sections/UsersSection";
+import RequestsSection from "../sections/RequestsSection";
+import PendingRequestsSection from "../sections/PendingRequestsSection";
 import UserForm from "../forms/UserForm";
 import RequestForm from "../forms/RequestForm";
 import Modal from "../common/Modal";
 import ConfirmationModal from "../common/ConfirmationModal";
-import UsersSection from "../sections/UsersSection";
-import RequestsSection from "../sections/RequestsSection";
-import PendingRequestsSection from "../sections/PendingRequestsSection";
-import {
-  changeRequestsStatus,
-  createUser,
-  updateUser,
-  deleteUser,
-  getAllRequests,
-  getAllUsers,
-  getRequestsByUserID,
-  deleteRequest,
-  createRequest,
-} from "../../api";
+import { useRequests } from "../../hooks/useRequests";
+import { useUsers } from "../../hooks/useUsers";
 
-function ManagerDashboard({ connectedUser, onSignout }) {
-  const [users, setUsers] = useState([]);
-  const [showUserForm, setShowUserForm] = useState(false);
-  const [showRequestForm, setShowRequestForm] = useState(false);
-  const [editingUser, setEditingUser] = useState(null);
-  const [requests, setRequests] = useState([]);
-  const [deletingRequestID, setDeletingRequestID] = useState(null);
-  const [showDeleteRequestModal, setShowDeleteRequestModal] = useState(false);
-  const [deletingUser, setDeletingUser] = useState(null);
-  const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
-
-  const pendingRequests = requests.filter((req) => req.status === "pending");
-  const myRequests = requests.filter((req) => req.userID === connectedUser.id);
+export default function ManagerDashboard({ connectedUser, onSignout }) {
   const [connectedUsername, setConnectedUsername] = useState(
     connectedUser.username
   );
 
-  const handleCreateUser = (e) => {
-    e.stopPropagation();
-    setShowUserForm(true);
-  };
+  const requestHook = useRequests(connectedUser.id, "manager");
+  const userHook = useUsers();
 
-  const handleSubmitCreateUser = async (newUserData) => {
-    createUser(newUserData).then((savedUser) => {
-      setUsers([...users, savedUser]);
-      setShowUserForm(false);
-    });
-  };
-
-  const handleEditUser = (userToEdit) => {
-    setEditingUser(userToEdit);
-    setShowUserForm(true);
-  };
+  const pendingRequests = requestHook.requests.filter(
+    (req) => req.status === "pending"
+  );
+  const myRequests = requestHook.requests.filter(
+    (req) => req.userID === connectedUser.id
+  );
 
   const handleUpdateUser = async (updatedUser) => {
-    updateUser(updatedUser.id, updatedUser).then(() => {
-      const updatedUserList = users.map((u) =>
-        u.id === updatedUser.id ? updatedUser : u
-      );
-
-      if (connectedUser.id === updatedUser.id) {
-        setConnectedUsername(updatedUser.username);
-        if (updatedUser.role !== "manager") onSignout();
-      }
-
-      setUsers(updatedUserList);
-      setEditingUser(null);
-      setShowUserForm(false);
-    });
-  };
-
-  const openDeleteUserModal = (user) => {
-    setDeletingUser(user);
-    setShowDeleteUserModal(true);
-  };
-
-  const closeDeleteUserModal = () => {
-    setDeletingUser(null);
-    setShowDeleteUserModal(false);
+    await userHook.handleUpdateUser(updatedUser);
+    if (connectedUser.id === updatedUser.id) {
+      setConnectedUsername(updatedUser.username);
+      if (updatedUser.role !== "manager") onSignout();
+    }
   };
 
   const handleDeleteUser = async () => {
-    const userID = deletingUser.id;
-    const userRequests = await getRequestsByUserID(userID);
-    await Promise.all(userRequests.map((req) => deleteRequest(req.id)));
-
-    deleteUser(userID).then(() => {
-      const updatedUserList = users.filter((u) => u.id !== userID);
-      setUsers(updatedUserList);
-
-      const updatedRequests = requests.filter((req) => req.userID !== userID);
-      setRequests(updatedRequests);
-
-      if (connectedUser.id === userID) {
-        onSignout();
-      }
-      closeDeleteUserModal();
-    });
-  };
-
-  const handleApproveRequest = async (requestID) => {
-    changeRequestsStatus(requestID, { status: "approved" }).then(() => {
-      const updatedRequestsList = requests.map((req) =>
-        req.id === requestID ? { ...req, status: "approved" } : req
-      );
-      setRequests(updatedRequestsList);
-    });
-  };
-
-  const handleRejectRequest = async (requestID) => {
-    changeRequestsStatus(requestID, { status: "rejected" }).then(() => {
-      const updatedRequestsList = requests.map((req) =>
-        req.id === requestID ? { ...req, status: "rejected" } : req
-      );
-      setRequests(updatedRequestsList);
-    });
-  };
-
-  const handleNewRequest = (e) => {
-    e.stopPropagation();
-    setShowRequestForm(true);
-  };
-
-  const handleSubmitNewRequest = async (newRequestData) => {
-    const today = new Date().toISOString().split("T")[0];
-    const newRequest = {
-      dateSubmitted: today,
-      status: "pending",
-      userID: connectedUser.id,
-      ...newRequestData,
-    };
-
-    createRequest(newRequest).then((result) => {
-      setRequests([...requests, result]);
-      setShowRequestForm(false);
-    });
-  };
-
-  const openDeleteRequestModal = (requestID) => {
-    setDeletingRequestID(requestID);
-    setShowDeleteRequestModal(true);
-  };
-
-  const closeDeleteRequestModal = () => {
-    setDeletingRequestID(null);
-    setShowDeleteRequestModal(false);
-  };
-
-  const handleDeleteRequest = async () => {
-    deleteRequest(deletingRequestID).then(() => {
-      const updatedRequests = requests.filter(
-        (req) => req.id !== deletingRequestID
-      );
-      setRequests(updatedRequests);
-      closeDeleteRequestModal();
-    });
-  };
-
-  const loadUsers = () => {
-    getAllUsers().then((result) => setUsers(result));
-  };
-
-  const loadRequests = () => {
-    getAllRequests().then((result) => setRequests(result));
+    if (connectedUser.id === userHook.deletingUser?.id) {
+      await userHook.handleDeleteUser();
+      onSignout();
+    } else {
+      await userHook.handleDeleteUser();
+    }
   };
 
   const handleRefresh = () => {
-    loadUsers();
-    loadRequests();
+    userHook.loadUsers();
+    requestHook.loadRequests();
   };
-
-  useEffect(() => {
-    loadUsers();
-    loadRequests();
-  }, []);
 
   return (
     <div className="dashboard">
@@ -187,66 +59,74 @@ function ManagerDashboard({ connectedUser, onSignout }) {
       <main className="dashboard-main">
         <section className="left-panel">
           <UsersSection
-            users={users}
-            onCreateUser={handleCreateUser}
-            onEditUser={handleEditUser}
-            onDeleteUser={openDeleteUserModal}
+            users={userHook.users}
+            onCreateUser={userHook.handleCreateUser}
+            onEditUser={userHook.handleEditUser}
+            onDeleteUser={userHook.openDeleteUserModal}
           />
 
           <RequestsSection
             requests={myRequests}
-            onNewRequest={handleNewRequest}
-            onDeleteRequest={openDeleteRequestModal}
+            onNewRequest={requestHook.handleNewRequest}
+            onDeleteRequest={requestHook.openDeleteRequestModal}
             mode="personal"
           />
 
-          <RequestsSection requests={requests} mode="all" users={users} />
+          <RequestsSection
+            requests={requestHook.requests}
+            mode="all"
+            users={userHook.users}
+          />
         </section>
 
         <PendingRequestsSection
           requests={pendingRequests}
-          users={users}
-          onApproveRequest={handleApproveRequest}
-          onRejectRequest={handleRejectRequest}
+          users={userHook.users}
+          onApproveRequest={requestHook.handleApproveRequest}
+          onRejectRequest={requestHook.handleRejectRequest}
         />
       </main>
 
-      <Modal isOpen={showUserForm}>
+      {/* Modals & Forms*/}
+      <Modal
+        isOpen={userHook.showUserForm}
+        onClose={() => userHook.setShowUserForm(false)}
+      >
         <UserForm
-          onSubmit={editingUser ? handleUpdateUser : handleSubmitCreateUser}
-          onCancel={() => {
-            setEditingUser(null);
-            setShowUserForm(false);
-          }}
-          mode={editingUser ? "edit" : "create"}
-          initialData={editingUser}
+          mode={userHook.editingUser ? "edit" : "create"}
+          initialData={userHook.editingUser}
+          onCancel={() => userHook.setShowUserForm(false)}
+          onSubmit={
+            userHook.editingUser
+              ? handleUpdateUser
+              : userHook.handleSubmitCreateUser
+          }
         />
       </Modal>
 
-      <Modal isOpen={showRequestForm}>
+      <Modal
+        isOpen={requestHook.showRequestForm}
+        onClose={() => requestHook.setShowRequestForm(false)}
+      >
         <RequestForm
-          onCancel={() => setShowRequestForm(false)}
-          onSubmit={handleSubmitNewRequest}
+          onCancel={() => requestHook.setShowRequestForm(false)}
+          onSubmit={requestHook.handleSubmitNewRequest}
         />
       </Modal>
 
       <ConfirmationModal
-        isOpen={showDeleteRequestModal}
+        isOpen={requestHook.showDeleteRequestModal}
         message="Are you sure you want to delete this request?"
-        onConfirm={handleDeleteRequest}
-        onCancel={closeDeleteRequestModal}
+        onConfirm={requestHook.handleDeleteRequest}
+        onCancel={requestHook.closeDeleteRequestModal}
       />
 
       <ConfirmationModal
-        isOpen={showDeleteUserModal}
-        message={`Are you sure you want to delete user ${
-          deletingUser && deletingUser.username
-        }?`}
+        isOpen={userHook.showDeleteUserModal}
+        message={`Are you sure you want to delete user ${userHook.deletingUser?.username}?`}
         onConfirm={handleDeleteUser}
-        onCancel={closeDeleteUserModal}
+        onCancel={userHook.closeDeleteUserModal}
       />
     </div>
   );
 }
-
-export default ManagerDashboard;

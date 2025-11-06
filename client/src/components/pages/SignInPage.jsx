@@ -1,6 +1,7 @@
 import { API_URL } from "../../api";
 import { useState } from "react";
 import "./SignInPage.css";
+import bcrypt from "bcryptjs";
 
 function SignIn({ onSignIn }) {
   const [username, setUsername] = useState("");
@@ -12,20 +13,26 @@ function SignIn({ onSignIn }) {
     e.preventDefault();
 
     try {
-      const res = await fetch(
-        `${API_URL}/users?username=${username}&password=${password}`
-      );
+      const res = await fetch(`${API_URL}/users?username=${username}`);
       const users = await res.json();
 
-      if (users.length > 0) {
-        setErrorMessage("");
-        onSignIn(users[0]);
-      } else {
+      if (users.length === 0) {
         setErrorMessage("Invalid username or password");
+        return;
       }
+
+      const user = users[0];
+      const passwordMatches = await bcrypt.compare(password, user.password);
+
+      if (!passwordMatches) {
+        setErrorMessage("Invalid username or password");
+        return;
+      }
+
+      onSignIn(user);
     } catch (error) {
       console.error("Error fetching user:", error);
-      setErrorMessage("Something went wrong. Please try again.");
+      setErrorMessage("Something went wrong.");
     }
   };
 

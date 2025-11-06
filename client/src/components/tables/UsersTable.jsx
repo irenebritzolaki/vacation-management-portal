@@ -9,7 +9,6 @@ function UserRow({ user, onEditUser, onDeleteUser }) {
       <td>{user.employeeID}</td>
       <td className="username">{user.username}</td>
       <td>{user.email}</td>
-      <td className="password">{user.password}</td>
       <td className="actions-column">
         <button onClick={() => onEditUser(user)}>Edit</button>
         <button onClick={() => onDeleteUser(user)}>Delete</button>
@@ -27,7 +26,6 @@ export default function UsersTable({ users, onEditUser, onDeleteUser }) {
           <th>Employee ID</th>
           <th>Username</th>
           <th>Email</th>
-          <th>Password</th>
           <th className="actions-column"></th>
         </tr>
       </thead>

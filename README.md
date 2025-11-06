@@ -9,9 +9,10 @@ A simple vacation management portal built with **React + Vite** on the frontend 
 - [Installation](#-installation)
 - [Connecting to the Portal](#-connecting-to-the-portal)
 - [Features](#-features)
+- [Major Update](#-major-update)
 - [Implementation Notes](#-implementation-notes)
 - [Tests](#-tests)
-- [Password Privacy & Security Notes](#-password-privacy--security-notes)
+- [Security Notes](#-security-notes)
 - [Future Plans](#-future-plans)
 
 ---
@@ -100,6 +101,19 @@ All of the above but also:
 
 ---
 
+## ⚠️ Major Update: Password Handling & Basic Authentication
+
+> **Note**: The initial implementation **wrongly** assumed managers needed to view user passwords. Earlier versions of this README also included several security issues, such as storing passwords in plaintext, exposing them to managers, and not filtering sensitive fields in API responses. After reviewing the assignment, it only requires viewing **name** and **email**. So, this update corrects that misunderstanding. 😬
+
+- Managers no longer see user passwords.
+- Passwords are now hashed with bcrypt before being stored in the mock database.
+- Sign-in now validates user credentials against hashed passwords (basic authentication feature).
+- UserForm supports optional password updates in edit mode via a checkbox.
+- API helper functions now exclude passwords when fetching user data unless needed for authentication.
+- Updated `seed.json` with hashed passwords to match the new authentication flow.
+
+---
+
 ## 💡 Implementation Notes
 
 Since this project uses json-server as a mock backend, a few operations are handled on the **client** side:
@@ -132,19 +146,11 @@ npm test
 
 ---
 
-## 🔒 Password Privacy & Security Notes
+## 🔒 Security Notes
 
-Passwords in this demo are stored in plaintext due to using json-server and are blurred in the manager dashboard, revealing on hover to protect against casual onlookers.
+For this demo, we assume that all inputs are sanitized on the server-side to prevent malicious code injection.
 
-The blur/reveal is purely visual and does not provide real security. In a real system:
-
-- Passwords would be hashed.
-
-- Plaintext would only be sent from a secure server to authenticated managers.
-
-- Server-side protections like HTTPS and access checks would apply.
-
-Also, all inputs are sanitized on the server-side to prevent malicious code injection.
+> Passwords are now hashed with bcrypt and never displayed in plaintext.
 
 ---
 

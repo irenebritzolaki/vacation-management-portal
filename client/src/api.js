@@ -16,10 +16,22 @@ const handleFetch = async (url, options = {}) => {
 
 // ---------- USERS ----------
 
-export const getAllUsers = () =>
-  handleFetch(`${API_URL}/users?_sort=-role,employeeID`);
+export const getAllUsers = async () => {
+  const users = await handleFetch(`${API_URL}/users?_sort=-role,employeeID`);
+  return (
+    users?.map((u) => {
+      delete u.password;
+      return u;
+    }) || []
+  );
+};
 
-export const getUserById = (id) => handleFetch(`${API_URL}/users/${id}`);
+export const getUserById = async (id) => {
+  const user = await handleFetch(`${API_URL}/users/${id}`);
+  if (!user) return null;
+  delete user.password;
+  return user;
+};
 
 export const createUser = (userData) =>
   handleFetch(`${API_URL}/users`, {

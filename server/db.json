@@ -5,7 +5,7 @@
       "employeeID": 1001001,
       "username": "employee1",
       "email": "employee1@company.com",
-      "password": "qwerty",
+      "password": "$2b$10$sMuwFy6NXfuNG5hCOo5T/.As95DpGkK6KZnoMUhdv2tORMKiRn3j2",
       "role": "employee"
     },
     {
@@ -13,7 +13,7 @@
       "employeeID": 1001002,
       "username": "jdoe",
       "email": "jdoe@company.com",
-      "password": "Abc123!@#",
+      "password": "$2b$10$eR8v/CDNdE1x0o2VmWWms.AzEqOKBWzGE4bDmXF0PxwcWf.OGneTG",
       "role": "employee"
     },
     {
@@ -21,7 +21,7 @@
       "employeeID": 1001003,
       "username": "asmith",
       "email": "asmith@company.com",
-      "password": "Passw0rd$",
+      "password": "$2b$10$fDnfmnCuGvnDrYg.xk7qa.d3c5vuaoZ8I1wo6ny8Fp4So.ALZvTte",
       "role": "employee"
     },
     {
@@ -29,7 +29,7 @@
       "employeeID": 1001004,
       "username": "mnguyen",
       "email": "mnguyen@company.com",
-      "password": "Strong1!x",
+      "password": "$2b$10$5AnXgMPcACiyTRdrkEihquptTQMzBqbEE9iFZHZC8I2AVlwR8.rx6",
       "role": "employee"
     },
     {
@@ -37,7 +37,7 @@
       "employeeID": 1002001,
       "username": "manager1",
       "email": "manager1@company.com",
-      "password": "123456",
+      "password": "$2b$10$RHZZPnjJINh2quM4PDfqZ.VPp1Lk91GqVCRD9j3LS6JzDYdqmW87a",
       "role": "manager"
     },
     {
@@ -45,7 +45,7 @@
       "employeeID": 1002002,
       "username": "slee",
       "email": "slee@company.com",
-      "password": "M@nager123",
+      "password": "$2b$10$nVm6vF.M3coq4Ed.1Ys3LOE3wIIKLb3p36ToW9O.1DwRCftOp0JA6",
       "role": "manager"
     }
   ],

@@ -1,20 +1,32 @@
 import { useState } from "react";
+import bcrypt from "bcryptjs";
 
 function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
-  const [formData, setFormData] = useState(
-    initialData || {
-      username: "",
-      email: "",
-      password: "",
-      employeeID: "",
-      role: "employee",
-    }
-  );
-  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    id: initialData?.id || "",
+    employeeID: initialData?.employeeID || "",
+    username: initialData?.username || "",
+    email: initialData?.email || "",
+    password: "",
+    role: initialData?.role || "employee",
+  });
 
-  const handleSubmit = (e) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [updatePassword, setUpdatePassword] = useState(mode === "create");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+
+    const submissionData = { ...formData };
+
+    if (updatePassword) {
+      submissionData.password = await bcrypt.hash(formData.password, 10);
+    } else if (!updatePassword) {
+      delete submissionData.password;
+    }
+
+    onSubmit(submissionData);
+
     setFormData({
       username: "",
       email: "",
@@ -22,6 +34,7 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
       employeeID: "",
       role: "employee",
     });
+    setUpdatePassword(mode === "create");
   };
 
   return (
@@ -103,26 +116,42 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
       </div>
 
       <div className="form-group">
-        <label>Password:</label>
-        <input
-          type={showPassword ? "text" : "password"}
-          value={formData.password}
-          placeholder="aBc1234@"
-          pattern="(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}"
-          title="Password must be at least 8 characters long and include one uppercase letter, one number, and one special character."
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
-          }
-          required
-        />
-        <label className="show-password">
-          <input
-            type="checkbox"
-            checked={showPassword}
-            onChange={() => setShowPassword(!showPassword)}
-          />
-          Show Password
-        </label>
+        {mode === "edit" ? (
+          <label className="update-password">
+            Set new password
+            <input
+              type="checkbox"
+              checked={updatePassword}
+              onChange={() => setUpdatePassword(!updatePassword)}
+            />
+          </label>
+        ) : (
+          <label>Password:</label>
+        )}
+
+        {updatePassword && (
+          <>
+            <input
+              type={showPassword ? "text" : "password"}
+              value={formData.password}
+              placeholder="aBc1234@"
+              pattern="(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}"
+              title="Password must be at least 8 characters long and include one uppercase letter, one number, and one special character."
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+              required={mode === "create" || updatePassword}
+            />
+            <label className="show-password">
+              <input
+                type="checkbox"
+                checked={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+              />
+              Show Password
+            </label>
+          </>
+        )}
       </div>
 
       <div className="button-group">

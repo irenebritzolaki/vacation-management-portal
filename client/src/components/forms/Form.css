@@ -76,11 +76,20 @@
   background-color: #e5e7eb;
 }
 
-label.show-password {
+label.show-password,
+label.update-password {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+label.show-password {
   font-weight: 400 !important;
-  margin-top: -0.5rem;
   font-size: 0.9;
+  margin-top: -0.5rem;
+}
+
+label.update-password input[type="checkbox"] {
+  height: 1rem;
+  width: 1rem;
 }

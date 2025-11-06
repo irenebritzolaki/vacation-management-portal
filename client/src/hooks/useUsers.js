@@ -21,6 +21,7 @@ export function useUsers() {
 
   const handleCreateUser = (e) => {
     e.stopPropagation();
+    setEditingUser(null);
     setShowUserForm(true);
   };
 
@@ -68,6 +69,7 @@ export function useUsers() {
     users,
     showUserForm,
     setShowUserForm,
+    setEditingUser,
     editingUser,
     deletingUser,
     showDeleteUserModal,

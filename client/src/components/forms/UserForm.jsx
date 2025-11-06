@@ -34,7 +34,6 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
       employeeID: "",
       role: "employee",
     });
-    setUpdatePassword(mode === "create");
   };
 
   return (

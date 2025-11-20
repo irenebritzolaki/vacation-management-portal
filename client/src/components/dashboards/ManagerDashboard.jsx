@@ -60,7 +60,6 @@ export default function ManagerDashboard({ connectedUser, onSignout }) {
         onSignOut={onSignout}
         onRefresh={handleRefresh}
       />
-
       <main className="dashboard-main">
         <section className="left-panel">
           <UsersSection
@@ -78,7 +77,9 @@ export default function ManagerDashboard({ connectedUser, onSignout }) {
           />
 
           <RequestsSection
-            requests={requestHook.requests}
+            requests={requestHook.requests.filter(
+              (req) => req.status !== "pending"
+            )}
             mode="all"
             users={userHook.users}
           />
@@ -91,47 +92,46 @@ export default function ManagerDashboard({ connectedUser, onSignout }) {
           onRejectRequest={requestHook.handleRejectRequest}
         />
       </main>
-
       {/* Modals & Forms*/}
-      <Modal
-        isOpen={userHook.showUserForm}
-        onClose={() => userHook.setShowUserForm(false)}
-      >
-        <UserForm
-          mode={userHook.editingUser ? "edit" : "create"}
-          initialData={userHook.editingUser}
-          onCancel={() => userHook.setShowUserForm(false)}
-          onSubmit={
-            userHook.editingUser
-              ? handleUpdateUser
-              : userHook.handleSubmitCreateUser
-          }
+      {userHook.showUserForm && (
+        <Modal onClose={() => userHook.setShowUserForm(false)}>
+          <UserForm
+            mode={userHook.editingUser ? "edit" : "create"}
+            initialData={userHook.editingUser}
+            onCancel={() => userHook.setShowUserForm(false)}
+            onSubmit={
+              userHook.editingUser
+                ? handleUpdateUser
+                : userHook.handleSubmitCreateUser
+            }
+          />
+        </Modal>
+      )}
+
+      {requestHook.showRequestForm && (
+        <Modal onClose={() => requestHook.setShowRequestForm(false)}>
+          <RequestForm
+            onCancel={() => requestHook.setShowRequestForm(false)}
+            onSubmit={requestHook.handleSubmitNewRequest}
+          />
+        </Modal>
+      )}
+
+      {requestHook.showDeleteRequestModal && (
+        <ConfirmationModal
+          message="Are you sure you want to delete this request?"
+          onConfirm={requestHook.handleDeleteRequest}
+          onCancel={requestHook.closeDeleteRequestModal}
         />
-      </Modal>
+      )}
 
-      <Modal
-        isOpen={requestHook.showRequestForm}
-        onClose={() => requestHook.setShowRequestForm(false)}
-      >
-        <RequestForm
-          onCancel={() => requestHook.setShowRequestForm(false)}
-          onSubmit={requestHook.handleSubmitNewRequest}
+      {userHook.showDeleteUserModal && (
+        <ConfirmationModal
+          message={`Are you sure you want to delete user ${userHook.deletingUser?.username}?`}
+          onConfirm={handleDeleteUser}
+          onCancel={userHook.closeDeleteUserModal}
         />
-      </Modal>
-
-      <ConfirmationModal
-        isOpen={requestHook.showDeleteRequestModal}
-        message="Are you sure you want to delete this request?"
-        onConfirm={requestHook.handleDeleteRequest}
-        onCancel={requestHook.closeDeleteRequestModal}
-      />
-
-      <ConfirmationModal
-        isOpen={userHook.showDeleteUserModal}
-        message={`Are you sure you want to delete user ${userHook.deletingUser?.username}?`}
-        onConfirm={handleDeleteUser}
-        onCancel={userHook.closeDeleteUserModal}
-      />
+      )}
     </div>
   );
 }

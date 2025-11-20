@@ -54,7 +54,7 @@ export const getAllRequests = () =>
   handleFetch(`${API_URL}/requests?_sort=-dateSubmitted`);
 
 export const getRequestsByUserID = (userID) =>
-  handleFetch(`${API_URL}/requests?userID=${userID}`);
+  handleFetch(`${API_URL}/requests?_sort=-dateSubmitted&userID=${userID}`);
 
 export const createRequest = (requestData) =>
   handleFetch(`${API_URL}/requests`, {

@@ -1,8 +1,6 @@
 import "./Modal.css";
 
-function Modal({ children, isOpen }) {
-  if (!isOpen) return null;
-
+function Modal({ children }) {
   return (
     <div className="modal-overlay">
       <div className="modal">{children}</div>

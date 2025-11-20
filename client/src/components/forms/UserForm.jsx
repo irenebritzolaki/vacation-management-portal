@@ -19,11 +19,9 @@ function UserForm({ onSubmit, onCancel, mode = "create", initialData = {} }) {
 
     const submissionData = { ...formData };
 
-    if (updatePassword) {
+    if (updatePassword)
       submissionData.password = await bcrypt.hash(formData.password, 10);
-    } else if (!updatePassword) {
-      delete submissionData.password;
-    }
+    else delete submissionData.password;
 
     onSubmit(submissionData);
 

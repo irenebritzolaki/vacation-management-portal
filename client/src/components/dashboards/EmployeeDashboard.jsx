@@ -34,22 +34,22 @@ function EmployeeDashboard({ connectedUser, onSignout }) {
         />
       </div>
 
-      <Modal
-        isOpen={requestHook.showRequestForm}
-        onClose={() => requestHook.setShowRequestForm(false)}
-      >
-        <RequestForm
-          onCancel={() => requestHook.setShowRequestForm(false)}
-          onSubmit={requestHook.handleSubmitNewRequest}
-        />
-      </Modal>
+      {requestHook.showRequestForm && (
+        <Modal onClose={() => requestHook.setShowRequestForm(false)}>
+          <RequestForm
+            onCancel={() => requestHook.setShowRequestForm(false)}
+            onSubmit={requestHook.handleSubmitNewRequest}
+          />
+        </Modal>
+      )}
 
-      <ConfirmationModal
-        isOpen={requestHook.showDeleteRequestModal}
-        message="Are you sure you want to delete this request?"
-        onConfirm={requestHook.handleDeleteRequest}
-        onCancel={requestHook.closeDeleteRequestModal}
-      />
+      {requestHook.showDeleteRequestModal && (
+        <ConfirmationModal
+          message="Are you sure you want to delete this request?"
+          onConfirm={requestHook.handleDeleteRequest}
+          onCancel={requestHook.closeDeleteRequestModal}
+        />
+      )}
     </div>
   );
 }

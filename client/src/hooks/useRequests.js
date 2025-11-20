@@ -37,7 +37,7 @@ export function useRequests(userID, mode = "employee") {
       ...newRequestData,
     };
     const result = await createRequest(newRequest);
-    setRequests([...requests, result]);
+    setRequests([result, ...requests]);
     setShowRequestForm(false);
   };
 

@@ -1,13 +1,8 @@
 import Modal from "./Modal";
 
-export default function ConfirmationModal({
-  isOpen,
-  message,
-  onConfirm,
-  onCancel,
-}) {
+export default function ConfirmationModal({ message, onConfirm, onCancel }) {
   return (
-    <Modal isOpen={isOpen}>
+    <Modal>
       <h3>Confirm</h3>
       <p className="confirmation-message">{message}</p>
       <div className="modal-footer">
